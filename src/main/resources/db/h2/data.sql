@@ -75,3 +75,9 @@ INSERT INTO roles (username, role) VALUES
 ('admin', 'ROLE_OWNER_ADMIN'),
 ('admin', 'ROLE_VET_ADMIN'),
 ('admin', 'ROLE_ADMIN');
+
+INSERT INTO users (username, password, enabled) VALUES
+('vet', '$2a$10$ymaklWBnpBKlgdMgkjWVF.GMGyvH8aDuTK.glFOaKw712LHtRRymS', TRUE);
+
+INSERT INTO roles (username, role) VALUES
+('vet', 'ROLE_VET_ADMIN');
