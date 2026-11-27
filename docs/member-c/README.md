@@ -4,16 +4,15 @@ SE3002 Software Quality Engineering, Fall 2026. Member C owns Area 3 and leads t
 
 Every continuation session reads these files before making changes:
 
-1. This README for document order and current scope.
-2. [PROJECT_CONTRACT.md](PROJECT_CONTRACT.md) for repository restrictions, ownership and phase boundaries.
-3. [PROGRESS.md](PROGRESS.md) for dated results and pending work.
-4. [HANDOVER.md](HANDOVER.md) for the exact continuation point and evidence.
-5. [REPOSITORY_AUDIT.md](REPOSITORY_AUDIT.md) for the baseline, source, workflows and integration boundaries.
-6. [ENVIRONMENT.md](ENVIRONMENT.md) for the toolchain, proposed setup commands and dependencies.
+1. This README and the [handover](HANDOVER.md) for the current Git state, exact checkpoint scope and next authorization.
+2. [Project contract](PROJECT_CONTRACT.md), [assignment checklist](REQUIREMENTS_CHECKLIST.md) and [progress](PROGRESS.md) for the test basis, ownership and documented status.
+3. [Repository audit](REPOSITORY_AUDIT.md) and [environment runbook](ENVIRONMENT.md) for source and CI facts and the proposed setup.
+4. [Implementation plan](IMPLEMENTATION_PLAN.md), [decisions](DECISIONS.md) and [manual actions](MANUAL_ACTIONS.md) for checkpoint boundaries, approvals and coordination.
+5. [Evidence register](EVIDENCE_REGISTER.md), [effort log](EFFORT_LOG.md) and [viva preparation](VIVA_PREPARATION.md) for proof, person-hours and demonstrations.
+6. [Shared test plan](../test-management/TEST_PLAN.md), [GQM definitions](../test-management/GQM_METRICS.md) and [weekly reporting](../test-management/WEEKLY_PROGRESS_TEMPLATE.md) for the proposed management foundation.
+7. [Commit log](COMMIT_LOG.md) and [AI-use record](AI_USE_RECORD.md) for actual commits, assistance disclosures and student verification.
 
-The [requirements checklist](REQUIREMENTS_CHECKLIST.md) maps the official brief to deliverables and acceptance evidence. The [commit log](COMMIT_LOG.md) distinguishes proposed checkpoints from actual commits. The [AI-use record](AI_USE_RECORD.md) records assistance and pending student verification.
-
-Checkpoint 0.1 covers the project contract, assignment checklist and initial continuation records. Checkpoint 0.2 contains the repository audit and environment runbook and passed the independent AI-assisted review reported by the student. The student authorized one local checkpoint commit. Checkpoint 0.3 will add the implementation plan, initial shared test management, evidence register, decisions, effort log, manual actions and viva preparation.
+Checkpoints 0.1 and 0.2 were committed and pushed according to the student's PowerShell evidence. Checkpoint 0.3 passed the reported independent technical review. The student reported personal review and authorized a local commit. Push and Phase 1.1 each require separate authorization. [Current handover](HANDOVER.md).
 
 ## Fresh-chat continuation
 
@@ -21,4 +20,4 @@ Start every subsequent checkpoint or phase in a fresh Codex chat unless the stud
 
 Use the handover as the authoritative record of documented progress and check it against the actual worktree and Git state. Preserve and review any uncommitted checkpoint before continuing. Confirm the preceding checkpoint's commit and push have been resolved as instructed and obtain the separate authorization for the next checkpoint.
 
-The exact initialization, 0.1 correction, 0.1 commit approval, 0.2 audit and 0.2 commit approval prompts are retained locally under `prompts/generated/`. The [AI-use record](AI_USE_RECORD.md) indexes these copies and identifies prompts still to recover. Git ignores `generated/`. For a fresh clone or missing copy, recover the prompt from the student's private backup or the original chat attachment and supply it privately to the next session.
+The exact initialization, 0.1 correction, 0.1 commit approval, 0.2 audit, 0.2 commit approval and 0.3 planning prompts are retained locally under `prompts/generated/`. The [AI-use record](AI_USE_RECORD.md#prompt-index-and-recovery) indexes these copies and identifies prompts still to recover. Git ignores `generated/`. For a fresh clone or missing copy, recover the prompt from the student's private backup or the original chat attachment and supply it privately to the next session.

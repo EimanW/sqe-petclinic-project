@@ -26,7 +26,7 @@ Keep original tests apart from upstream tests. Current team Java tests are under
 
 ## Authority and Git checkpoints
 
-- Documentation approval, committing, pushing, opening a pull request and starting a new checkpoint each require separate explicit decisions. Resolve the preceding checkpoint's commit and push as instructed before starting the next one. Checkpoint 0.2 requires its own prompt. Phase 1 and each later phase require separate authorization.
+- Documentation approval, committing, pushing, opening a pull request and starting a new checkpoint each require separate explicit decisions. Resolve the preceding checkpoint's commit and push as instructed before starting the next one. Follow the [implementation plan](IMPLEMENTATION_PLAN.md) and current handover for checkpoint scope and prerequisites.
 - A development commit may proceed with pending student-verification details when the student explicitly authorizes it and the pre-commit checks pass. Record automated verification, Codex self-review, independent AI-assisted review and personal student verification separately. The student must personally verify AI outputs and record the checks before final submission.
 - Use `feat/area3-24i-3014`. Check status, Git identity, remotes, branches, log, tags, baseline, HEAD and local `origin/master` before editing. Stop on a wrong branch or unrelated edits. Treat `master` as protected under team instructions. Hosting-side protection is still unverified.
 - Preserve shared and upstream code, existing team tests, CI and all quality thresholds. For any legitimate shared change, obtain approval on the exact proposed diff before making it. Preserve genuine test failures and approved production rules.

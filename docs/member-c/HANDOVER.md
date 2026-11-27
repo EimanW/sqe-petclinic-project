@@ -2,54 +2,51 @@
 
 ## Continuation point
 
-| Item | State on 2026-11-28 (Asia/Karachi) |
+| Item | Verified or reported state on 2026-11-28 (Asia/Karachi) |
 | --- | --- |
-| Current authorization | The student reported the passing independent ChatGPT review and authorized staging the eight documents and creating one local checkpoint 0.2 commit after verification. Push, checkpoint 0.3 and Phase 1 each require separate authorization. |
-| Repository and branch | `D:\SQE-Project\sqe-petclinic-project` on `feat/area3-24i-3014`, tracking `origin/feat/area3-24i-3014`. Origin is `https://github.com/EimanW/sqe-petclinic-project.git`. Local author matches Muhammad Huzaima Malik. |
-| Pre-commit HEAD and 0.1 | `8cefbb958b491b29a46ba9ecddaa3b021b0a3c75` is checkpoint 0.1 and the local feature tracking tip. Git confirms its author, message and exactly seven Member C documents. The student supplied the successful push outcome. See [commit log](COMMIT_LOG.md) and [AI-use record](AI_USE_RECORD.md). |
-| Branch base and baseline | 0.1’s parent and local `origin/master` are `9e318fa35ec0917dec5be8009095bae44278b9c0`, PR #5’s merge. `baseline` is `220f4ba8e92cec9ad1faa03324723a3e9da63d95` and an ancestor of HEAD. Local `origin/master...HEAD` is 0 behind, 1 ahead. |
-| Hosted status | Current hosted tips and any newer integration commits are pending. Codex's restricted network could not reach GitHub through its local proxy. The student demonstrated PowerShell access with the earlier push. No current manual lookup output accompanied the approval. Treat master as protected under the team contract. See [runbook](ENVIRONMENT.md#blockers-and-dependencies). |
+| Current boundary | Checkpoint 0.3 passed the reported independent technical review. The student also reported personally reviewing the checkpoint and authorized one local commit of the 16 paths below after verification. Push and Phase 1.1 each require separate authorization. |
+| Repository and branch | `D:\SQE-Project\sqe-petclinic-project` on `feat/area3-24i-3014`, tracking `origin/feat/area3-24i-3014`. Origin is `https://github.com/EimanW/sqe-petclinic-project.git`. Local author name matches the student. |
+| Pre-commit HEAD and tracking | Both local refs resolved to `48450e0619d6915664e7a5e405f4de1ff7eea272`, checkpoint 0.2, with eight changed paths. Its parent is `8cefbb958b491b29a46ba9ecddaa3b021b0a3c75`, checkpoint 0.1, with seven changed paths. The student supplied separate successful push evidence for both. Read local Git for the 0.3 SHA after creation. |
+| Integration and baseline | Local `origin/master` and 0.1 parent are `9e318fa35ec0917dec5be8009095bae44278b9c0`. Before the 0.3 commit the comparison was 0 behind, 2 ahead. The `baseline` tag at `220f4ba8e92cec9ad1faa03324723a3e9da63d95` resolved and was an ancestor of pre-commit HEAD. Master is protected by team instruction. |
+| Hosted evidence supplied by student | The student successfully ran `git ls-remote origin refs/heads/master refs/heads/feat/area3-24i-3014`. The lookup returned feature `48450e0619d6915664e7a5e405f4de1ff7eea272` and master `9e318fa35ec0917dec5be8009095bae44278b9c0`, matching the local tracking refs at lookup time. Hosting-side protection and CI enforcement still await evidence. MA-02 specifies the next pre-push lookup. |
+| Entry diff | Only `docs/member-c/AI_USE_RECORD.md` was unstaged. It updated the 0.2 row and added the student's reported manual review of all eight files. Both parts were retained. This is separate from the independent ChatGPT review and leaves specific checks, changes and runtime evidence pending. |
+| Private sources | The exact 0.3 planning and commit-approval attachments were copied into the existing ignored prompt directory and checked via SHA-256. Earlier recovery tasks stay open. The official PDF remains locally ignored. |
 
-At the start of the audit the worktree was clean. At the start of approval the index was empty and exactly eight intended Markdown files were pending. `PROJECT_CONTRACT.md` stays at the reviewed 0.1 revision.
+## Proposed staging list
 
-| Change | Authorized staging path |
+| Change | Path |
 | --- | --- |
-| New | `docs/member-c/REPOSITORY_AUDIT.md` |
-| New | `docs/member-c/ENVIRONMENT.md` |
+| New | `docs/member-c/IMPLEMENTATION_PLAN.md` |
+| New | `docs/member-c/DECISIONS.md` |
+| New | `docs/member-c/EVIDENCE_REGISTER.md` |
+| New | `docs/member-c/MANUAL_ACTIONS.md` |
+| New | `docs/member-c/EFFORT_LOG.md` |
+| New | `docs/member-c/VIVA_PREPARATION.md` |
+| New | `docs/test-management/TEST_PLAN.md` |
+| New | `docs/test-management/GQM_METRICS.md` |
+| New | `docs/test-management/WEEKLY_PROGRESS_TEMPLATE.md` |
 | Modified | `docs/member-c/README.md` |
 | Modified | `docs/member-c/REQUIREMENTS_CHECKLIST.md` |
-| Modified | `docs/member-c/COMMIT_LOG.md` |
+| Modified | `docs/member-c/PROJECT_CONTRACT.md` |
 | Modified | `docs/member-c/PROGRESS.md` |
 | Modified | `docs/member-c/HANDOVER.md` |
+| Modified | `docs/member-c/COMMIT_LOG.md` |
 | Modified | `docs/member-c/AI_USE_RECORD.md` |
 
-The ignored prompt copies are indexed in the [AI-use record](AI_USE_RECORD.md). Keep them with the private originals. The official assignment PDF is locally ignored.
+Authorized commit subject is `docs(area3): add implementation plan and evidence tracking`. Audit and runbook remain historical 0.2 snapshots. For historical commands see `git show 48450e0:docs/member-c/HANDOVER.md`.
 
-## Commands actually executed
+## Decisions and dependencies to carry forward
 
-| Check | Outcome |
-| --- | --- |
-| `git --no-optional-locks status --short --branch`, `git branch -avv`, `git remote -v`, `git var GIT_AUTHOR_IDENT`, `git show --format=fuller --stat HEAD`, `git log --oneline --decorate --all` and `git log --format='%h %s' baseline..HEAD` | Verified clean entry state, authorized branch and configured identity, checkpoint 0.1 metadata, and teammate history. |
-| `git rev-parse HEAD origin/feat/area3-24i-3014 origin/master`, `git rev-parse --abbrev-ref '@{upstream}'`, `git rev-parse 'baseline^{commit}'`, `git merge-base --is-ancestor baseline HEAD` and `git rev-list --left-right --count origin/master...HEAD` | Hashes above, correct upstream, valid baseline ancestry and exactly one feature commit beyond the tracking snapshot of master. |
-| `git ls-remote origin refs/heads/master refs/heads/feat/area3-24i-3014` and `git ls-remote https://github.com/spring-petclinic/spring-petclinic-angular.git HEAD refs/heads/master 'refs/tags/*'` | Both failed to connect to GitHub port 443 via `127.0.0.1`. Exact failure and retry details are in the [runbook](ENVIRONMENT.md#blockers-and-dependencies). |
-| `Get-Content -Encoding utf8`, `rg --files` and targeted `rg`/source reads, including `rg -c '^\s*@Test\s*$'` | Read the seven 0.1 docs and latest retained prompt. Confirmed route/service paths, roles and seed differences, configured CI settings and 72 team Java `@Test` methods. |
-| Existing Git-bundled `pdftotext.exe -f 1 -l 5 -layout -enc UTF-8` and `-f 6 -l 7` on the local PDF, plus `Get-FileHash -Algorithm SHA256` | Cross-checked the relevant assignment sections and rubric. PDF hash matches the [checklist](REQUIREMENTS_CHECKLIST.md). |
-| `Get-Command`, `git --version`, `java -version`, Java home `Test-Path`, `node --version`, `npm.cmd --version`, `python --version`, `docker --version`, `docker compose version`, `docker info --format '{{.ServerVersion}}'`, `k6 version`, `k6 run --help` and `k6 inspect --help` | Read tool versions and k6 CLI capabilities. Compose was available and its engine was unreachable. Read Chromium cache names and checked Chrome paths. No browser launch or workload execution. |
-| Public GitHub/Angular documentation reads | Identified evaluation SHA `f497b8fd61ec9cb896aa09447263b8872fb233be` and the Angular 22 Node 24 floor. Public mutable files informed route and auth inspection. Exact pinned files and the secured runtime pairing remain pending. |
-| `Test-Path -LiteralPath '..\spring-petclinic-angular'`, `git ls-files --stage` and tracked file inventory | No sibling Angular checkout, tracked npm frontend files or Git submodule. |
-| `Copy-Item -LiteralPath`, `Get-FileHash -Algorithm SHA256` and `git check-ignore -v` | Preserved and hash-verified the exact ignored 0.2 attachment. Confirmed ignore rules for private prompts and the PDF. |
-| `git status --porcelain=v1 --branch -uall`, `git diff --check`, `git diff --cached --check`, `git diff HEAD --name-only` and Python document validation | Verified the eight documentation paths including the two untracked files, empty index, Markdown links, unchanged 39 checklist IDs and statuses, and syntax of the proposed PowerShell blocks with the PowerShell parser. The parser did not execute the blocks. |
+- Reuse the secured REST repository. Acquire the exact Angular candidate only in a sibling checkout. `f497b8fd61ec9cb896aa09447263b8872fb233be` awaits evaluation approval and runtime verification. Select Node from exact pinned engines and confirm download access. [Decisions](DECISIONS.md) · [Runbook](ENVIRONMENT.md).
+- Record the approved evaluation SHA, Node/npm version, lock checksum and upstream notices in 1.1. In 1.2 prove secured browser integration, Basic role and H2 reset outcomes. Obtain assessor clarification for durable storage and coordinate any PostgreSQL/volume work with A.
+- Confirm the shared docs and Playwright path with A/B. Deliver the secured common fixtures, smoke and contributor instructions at 1.3. Final requirements, business rules, association and duplicates, oracles and six-use-case split gate Phases 2/3. Member C candidates are UC-C01 and UC-C02. A/B still supply two distinct cases each.
+- A's risk/exit evidence and B's traceability/defect inputs gate adoption of affected criteria and final metrics/reporting. A's actual Surefire, JaCoCo, PIT/survivor and Sonar reports and hosted enforcement proof remain pending. The local source count is 72 test methods. Shared test management drafts are proposals and should defer to any canonical material surfaced by the team. [Shared plan](../test-management/TEST_PLAN.md).
+- Weekly measures and real person-hours begin as evidence becomes available. The first snapshot records genuine 0.1/0.2 progress. [Weekly baseline](../test-management/WEEKLY_PROGRESS_TEMPLATE.md#initial-reporting-baseline) · [Effort log](EFFORT_LOG.md).
 
-During approval, Git reconfirmed the branch, configured author, baseline ancestry, 0.1 parent and eight-file scope. Codex retried `git ls-remote origin refs/heads/master refs/heads/feat/area3-24i-3014`. The restricted session failed to connect to GitHub port 443 via `127.0.0.1` after 2119 ms, and public API and branch queries returned no reference evidence. The exact approval attachment was copied privately and hash-verified.
+## Verification and next authorized action
 
-No repository was cloned. No tools, applications or databases were installed or started. The Maven wrapper, test suite and security assessments remain unexecuted.
+Local Git checks covered branch, tracking, identity, previous commit contents, baseline ancestry and diff scope. Git-bundled `pdftotext.exe -layout -enc UTF-8` extracted the seven-page source and `Get-FileHash -Algorithm SHA256` matched the prior PDF hash. `Copy-Item -LiteralPath` and SHA-256 comparison preserved the prompt in the ignored directory. Markdown verification used `git diff --check`, `git diff --cached --check` and direct Python reads of all 18 planning Markdown files. It checked 36 changed or new tables, 221 relative links and anchors, all 39 checklist IDs and six transitions, 32 unique evidence IDs and the proposed PERT total. The worktree has only the 16 proposed staging paths outside ignored files. Runtime activities and Git publication were outside this checkpoint.
 
-## Carry forward
+The student supplied the independent review result for all 18 documents. It confirmed eight columns for each of the 39 unique checklist IDs, counts of 22 NOT STARTED, 15 IN PROGRESS, 2 NEEDS HUMAN REVIEW and 0 VERIFIED, 32 unique evidence IDs, clean trailing whitespace and PERT (44 + 4 × 79 + 144) / 6 = 84 proposed person-hours. The Area 3 effort baseline awaits explicit adoption, and a PostgreSQL demonstration may add work. The shared plan and three draft exit criteria await team approval and canonical risk links.
 
-- The [repository audit](REPOSITORY_AUDIT.md) records W1/W2 source behavior, source test counts, CI scope and rule gaps. Member A’s package and quality gates remain protected. Request genuine runtime reports and hosted evidence separately.
-- The [environment runbook](ENVIRONMENT.md) records the proposed H2/Java 21 path, tested tool inventory, planned PostgreSQL durability demonstration subject to team and instructor agreement and external Angular evaluation. Startup, auth/CORS, seed/reset, Chromium launch, accepted frontend SHA and persistent-storage interpretation are open.
-- Resolve the team test basis, owner–pet and duplicate expectations, use-case split, early estimates and shared management ownership on the schedule in [progress](PROGRESS.md) and [blockers](ENVIRONMENT.md#blockers-and-dependencies).
-
-## Next action
-
-For the current approval, verify and record the local commit SHA and parent. Before any separately authorized push, run the read-only `git ls-remote origin refs/heads/master refs/heads/feat/area3-24i-3014` from the student's PowerShell and compare with the local snapshots. Identify any new integration commits and stop for review if the feature tip differs unexpectedly. Preserve any personal verification details in the AI-use record. Record the actual commit and push metadata in the next authorized documentation checkpoint.
+Verify the authorized commit's actual SHA and parent in local Git. Record the SHA and successful push evidence at the next authorized documentation update. Before separately authorized publication, use the read-only Git command in MA-02 and retain its output. Once the 0.3 commit and push are verified, start a fresh Codex or Antigravity session with a separate 1.1 prompt. Reconstruct the repository state and check candidate approval, Git access, the intended sibling path and the prospective personal estimate before acquisition. Independent 1.1 work can proceed without the later test-basis decisions. [Manual actions](MANUAL_ACTIONS.md) · [Phase 1.1](IMPLEMENTATION_PLAN.md#11--evaluate-and-acquire-angular).
