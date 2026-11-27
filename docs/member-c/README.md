@@ -8,10 +8,12 @@ Every continuation session reads these files before making changes:
 2. [PROJECT_CONTRACT.md](PROJECT_CONTRACT.md) for repository restrictions, ownership and phase boundaries.
 3. [PROGRESS.md](PROGRESS.md) for dated results and pending work.
 4. [HANDOVER.md](HANDOVER.md) for the exact continuation point and evidence.
+5. [REPOSITORY_AUDIT.md](REPOSITORY_AUDIT.md) for the baseline, source, workflows and integration boundaries.
+6. [ENVIRONMENT.md](ENVIRONMENT.md) for the toolchain, proposed setup commands and dependencies.
 
 The [requirements checklist](REQUIREMENTS_CHECKLIST.md) maps the official brief to deliverables and acceptance evidence. The [commit log](COMMIT_LOG.md) distinguishes proposed checkpoints from actual commits. The [AI-use record](AI_USE_RECORD.md) records assistance and pending student verification.
 
-Checkpoint 0.1 covers the project contract, assignment checklist and initial continuation records. Checkpoint 0.2 will hold the full audit and environment commands. Checkpoint 0.3 will add the implementation plan, initial shared test management, evidence register, decisions, effort log, manual actions and viva preparation.
+Checkpoint 0.1 covers the project contract, assignment checklist and initial continuation records. Checkpoint 0.2 contains the repository audit and environment runbook and passed the independent AI-assisted review reported by the student. The student authorized one local checkpoint commit. Checkpoint 0.3 will add the implementation plan, initial shared test management, evidence register, decisions, effort log, manual actions and viva preparation.
 
 ## Fresh-chat continuation
 
@@ -19,4 +21,4 @@ Start every subsequent checkpoint or phase in a fresh Codex chat unless the stud
 
 Use the handover as the authoritative record of documented progress and check it against the actual worktree and Git state. Preserve and review any uncommitted checkpoint before continuing. Confirm the preceding checkpoint's commit and push have been resolved as instructed and obtain the separate authorization for the next checkpoint.
 
-The exact initialization, 0.1 correction and 0.1 commit approval prompts are retained locally under `prompts/generated/`. The [AI-use record](AI_USE_RECORD.md) indexes these copies and identifies prompts still to recover. Git ignores `generated/`. For a fresh clone or missing copy, recover the prompt from the student's private backup or the original chat attachment and supply it privately to the next session.
+The exact initialization, 0.1 correction, 0.1 commit approval, 0.2 audit and 0.2 commit approval prompts are retained locally under `prompts/generated/`. The [AI-use record](AI_USE_RECORD.md) indexes these copies and identifies prompts still to recover. Git ignores `generated/`. For a fresh clone or missing copy, recover the prompt from the student's private backup or the original chat attachment and supply it privately to the next session.
