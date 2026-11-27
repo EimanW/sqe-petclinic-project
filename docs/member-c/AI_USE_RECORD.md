@@ -1,0 +1,33 @@
+# Member C AI-use record
+
+| Date (Asia/Karachi) | Tool | Purpose | Output used or proposed | Student checks and changes |
+| --- | --- | --- | --- | --- |
+| 2026-11-28 | OpenAI Codex | Read the official assignment, audit the local branch and source, inspect public upstream documentation, and draft the checkpoint 0.1 records. | [Project contract](PROJECT_CONTRACT.md), [assignment checklist](REQUIREMENTS_CHECKLIST.md), and the checkpoint support files listed in [handover](HANDOVER.md). The exact initial prompt is stored privately under `prompts/generated/`. | Pending. The student should compare the checklist to each page of the brief, confirm the Git/source readings and record any corrections and the date of review. |
+| Before this 0.1 correction session | ChatGPT | Analyze the initial requirements, plan the phased work, draft prompts, and review the seven 0.1 documents and the detailed repository inspection report. | Planning and prompt drafts, external review findings, proposed documentation corrections and implementation risks supplied in the correction prompt. | Pending. The student must check the planning and review outputs against the brief and local evidence and record what they checked or changed. |
+| Before this 0.1 correction session | OpenAI Codex, prior read-only inspection | Inspect repository state, source and configuration and report the findings for review. | Detailed repository inspection report referenced in the correction prompt. Available observations are recorded in the [handover](HANDOVER.md). | Pending. The student must check the report against Git and local source. Runtime results and hosted evidence require separate verification. |
+| 2026-11-28 | OpenAI Codex, 0.1 corrections | Reread the original brief and existing records, check local Git and relevant source facts, apply targeted corrections, and preserve the supplied review prompt. | The seven corrected 0.1 documents listed in the [handover](HANDOVER.md) and the verified private copy of the current prompt. | Pending. The student must review these corrections, verify the evidence and authorization boundaries, and record their own checks and changes with the date. |
+| 2026-11-28 | ChatGPT, independent AI-assisted technical review | Review the seven corrected Markdown files listed in the [handover](HANDOVER.md) against the assignment, earlier file versions, Codex's repository inspection report and the Member C contract. | The student supplied the review outcome. The review passed. Programmatic inspection found 39 unique IDs, eight columns per requirement row, 28 NOT STARTED, 9 IN PROGRESS, 2 NEEDS HUMAN REVIEW and 0 VERIFIED, with clean whitespace and consistent relative references. | See the separate student statement below. Detailed checks remain pending. |
+| 2026-11-28 | OpenAI Codex, 0.1 approval and commit preparation | Read the seven current files and record review provenance, the student's statement and the development commit authorization. | Codex self-review covered the document content and scope. Automated pre-commit checks cover Git, checklist structure and statuses, relative links, whitespace, sensitive content and private file exclusion. | Specific checks and changes for this session's output remain pending. |
+
+## Student statement and authorization
+
+On 2026-11-28, the student reported having manually reviewed the work through the current checkpoint. The statement records the review as reported. The specific checks performed, any changes made and verification of subsequent outputs remain pending in this record before final submission.
+
+The student separately authorized staging the seven listed Markdown files and creating one local 0.1 development commit. Final academic verification remains outstanding. Push authorization is separate.
+
+## Prompt index and recovery
+
+| Session or use | Exact prompt or recovery action |
+| --- | --- |
+| Codex Phase 0 initialization and initial 0.1 records | `prompts/generated/PHASE_0_INITIAL_PROMPT.md`. Verified byte-for-byte against the original local attachment by matching SHA-256. |
+| Codex prior read-only inspection | No separate verbatim instruction was available in the reviewed records. Recover the instruction from the prior chat or attachment and preserve it privately. If the inspection used the initialization prompt, confirm and record that mapping. |
+| ChatGPT planning, prompt drafting and external review | Export or copy the actual ChatGPT prompts and outputs from the relevant chats, including the seven-document review, the inspection report review and any follow-up prompts. The saved Codex prompts preserve instructions supplied to Codex. The original ChatGPT exchanges need their own records. |
+| Codex 0.1 final review and corrections | `prompts/generated/CHECKPOINT_0_1_FINAL_REVIEW_PROMPT.md`. Copied from the supplied attachment without rewriting and verified by SHA-256. |
+| ChatGPT independent review of the corrected 0.1 files | The outcome is recorded above. Preserve the verbatim prompt and full review output from the original ChatGPT session. |
+| Codex 0.1 development commit approval | `prompts/generated/CHECKPOINT_0_1_COMMIT_APPROVAL_PROMPT.md`. Copied verbatim from the approval attachment and verified by SHA-256. The accompanying manual review statement is recorded above. |
+
+Save the complete verbatim prompts actually used in each session when available, and keep private originals in a backed-up local location. The student should confirm the backup and access. Maintain this versioned index with each session's prompt reference, tool, purpose, output and student checks. Record unavailable originals as pending and recover them manually where possible. Reconstructed text must never be presented as exact. ChatGPT review and Codex checks are AI assistance. Student verification requires the student's own dated record.
+
+Keep privacy-sensitive originals outside Git history and agree with the instructor how they can be made available for verification. Include the required AI-use record and approved evidence or access instructions in the submission. Account explicitly for any unavailable prompt or restricted evidence. Never silently omit required AI-use evidence.
+
+Git ignore rules apply to Git. A ZIP of the entire worktree can include ignored files. Before submission, inspect the actual archive manifest and a separate extraction for the versioned AI-use record, required evidence and `.git`. Confirm that private prompts, the local assignment PDF and other excluded files are absent, with the agreed instructor access route recorded for private evidence.

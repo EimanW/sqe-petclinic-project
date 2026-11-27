@@ -1,0 +1,9 @@
+# Member C incremental commit log
+
+| Phase and checkpoint | Status | Commit hash | Proposed message | Purpose and affected files | Verification and evidence | Push |
+| --- | --- | --- | --- | --- | --- | --- |
+| 0.1 | DEVELOPMENT COMMIT AUTHORIZED | Record at next authorized checkpoint | `docs(area3): record project contract and assignment checklist` | Add the project contract, assignment checklist and initial continuation records, including the final documentation corrections. Exact files are in [HANDOVER.md](HANDOVER.md). | Seven-page brief, [checklist](REQUIREMENTS_CHECKLIST.md), Git and document checks in [handover](HANDOVER.md), and separate AI and student review records in the [AI-use record](AI_USE_RECORD.md). Final academic verification remains outstanding. | Pending authorization |
+| 0.2 | NOT STARTED | Pending | `docs(area3): document repository audit and local environment` | Consolidate backend, Angular and toolchain audit, teammate evidence, setup proposals and blockers. Exact staging paths to be decided at 0.2. | Review to be recorded at 0.2. | Pending authorization |
+| 0.3 | NOT STARTED | Pending | `docs(area3): add implementation plan and evidence tracking` | Add the detailed implementation plan, initial shared test management, evidence tracking and remaining handover records, including decisions, effort, manual actions and viva preparation. Exact staging paths to be decided at 0.3. | Review to be recorded at 0.3. | Pending authorization |
+
+Record the actual SHA only after the authorized commit succeeds and the push status only after the authorized push is verified on the remote feature branch. Record them at the next legitimate documentation checkpoint or in another approved record. A commit's files cannot contain that same commit's final SHA. Use the next substantive checkpoint to update the log. Fake or empty commits are prohibited. Private prompt copies stay local and are excluded from every staging list.
