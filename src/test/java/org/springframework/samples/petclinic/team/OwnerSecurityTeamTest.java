@@ -73,7 +73,7 @@ class OwnerSecurityTeamTest {
     @DisplayName("Denied: VET_ADMIN cannot add a pet, nothing is saved")
     void vetAdmin_cannotAddPet() throws Exception {
         mockMvc.perform(post("/api/owners/1/pets").contentType(MediaType.APPLICATION_JSON).content(PET_JSON))
-            .andExpect(r -> assertThat(r.getResponse().getStatus()).isGreaterThanOrEqualTo(400));
+            .andExpect(status().isForbidden());
         verify(clinicService, never()).savePet(any());
     }
 
@@ -82,7 +82,7 @@ class OwnerSecurityTeamTest {
     @DisplayName("Denied: VET_ADMIN cannot read an owner, service never called")
     void vetAdmin_cannotReadOwner() throws Exception {
         mockMvc.perform(get("/api/owners/1"))
-            .andExpect(r -> assertThat(r.getResponse().getStatus()).isGreaterThanOrEqualTo(400));
+            .andExpect(status().isForbidden());
         verify(clinicService, never()).findOwnerById(anyInt());
     }
 }
