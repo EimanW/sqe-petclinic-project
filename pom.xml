@@ -469,6 +469,26 @@
                 <artifactId>maven-site-plugin</artifactId>
                 <version>${maven.site-plugin.version}</version>
             </plugin>
+            <plugin>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>1.30.0</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-junit5-plugin</artifactId>
+                        <version>1.2.3</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <targetClasses><param>org.springframework.samples.petclinic.rest.validation.PetAgeValidator</param><param>org.springframework.samples.petclinic.rest.controller.v1.OwnerRestControllerV1</param><param>org.springframework.samples.petclinic.model.Owner</param><param>org.springframework.samples.petclinic.model.Pet</param><param>org.springframework.samples.petclinic.model.Visit</param></targetClasses>
+                    <targetTests><param>org.springframework.samples.petclinic.team.*</param></targetTests>
+                    <mutators><mutator>ALL</mutator></mutators>
+                    <outputFormats><param>HTML</param><param>XML</param></outputFormats>
+                    <timestampedReports>false</timestampedReports>
+                    <threads>4</threads><mutationThreshold>90</mutationThreshold>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>

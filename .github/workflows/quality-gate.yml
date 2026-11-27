@@ -1,0 +1,60 @@
+# Team quality gate for W1/W2 (SE3002 SQE final project).
+# Runs on every pull request to master and on every push to master.
+# Any failing step fails the job, and branch protection blocks the merge.
+# No continue-on-error and no "|| true" anywhere, on purpose.
+name: quality-gate
+
+on:
+  pull_request:
+    branches: [ master ]
+  push:
+    branches: [ master ]
+
+jobs:
+  quality-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (full history for Sonar)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+
+      # Gate 1: all team tests pass AND JaCoCo 100% line + branch on the in-scope classes
+      - name: Team tests + JaCoCo coverage gate (100%)
+        run: >
+          ./mvnw -B clean verify
+          -Dtest='org.springframework.samples.petclinic.team.**'
+          -Dsurefire.failIfNoSpecifiedTests=false
+
+      # Gate 2: PIT mutation score must stay at or above mutationThreshold (set in pom.xml)
+      - name: Mutation testing gate (PIT)
+        run: ./mvnw -B org.pitest:pitest-maven:mutationCoverage
+
+      # Gate 3: SonarQube Cloud quality gate must pass (waits for the result)
+      - name: SonarQube Cloud analysis + quality gate
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: >
+          ./mvnw -B org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+          -Dsonar.host.url=https://sonarcloud.io
+          -Dsonar.organization=${{ vars.SONAR_ORGANIZATION }}
+          -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }}
+          -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+          -Dsonar.qualitygate.wait=true
+
+      - name: Upload reports (kept as evidence)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: quality-reports
+          path: |
+            target/site/jacoco-team/
+            target/pit-reports/
+            target/surefire-reports/
