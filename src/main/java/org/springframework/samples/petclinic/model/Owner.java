@@ -147,4 +147,9 @@ public class Owner extends Person {
             .append("telephone", this.telephone)
             .toString();
     }
+
+    // Deliberately untested: used to show the CI gate blocks uncovered code
+    public boolean hasNoPets() {
+        return this.getPets().isEmpty();
+    }
 }
