@@ -42,6 +42,8 @@ async function openAddPet(page: Page) {
   await page.getByRole('button', { name: 'Add New Pet' }).click();
   await expect(page).toHaveURL(/pets\/add/, { timeout: 15000 });
   await expect(page.getByRole('heading', { name: 'Add Pet' })).toBeVisible();
+  // wait for the owner to load: the form re-initialises when it arrives and would wipe typed values
+  await expect(page.locator('#owner_name')).toHaveValue('George Franklin');
 }
 async function fillPet(page: Page, name: string, birth: Date, type: string) {
   await page.locator('#name').fill(name);

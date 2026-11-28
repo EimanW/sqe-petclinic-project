@@ -1,0 +1,18 @@
+
+Running 13 tests using 1 worker
+
+  ✓   1 [chromium] › tests/rbac-vet.spec.ts:6:3 › Role check: VET_ADMIN cannot use owner workflows › vet gets 403 (not 500) when the UI loads owners (564ms)
+  ✓   2 [chromium] › tests/uc1-uc2.spec.ts:72:3 › UC-1 Add pet (W1) and UC-2 Book visit (W2) › UC-1 main: owner admin adds a pet to an owner (1.6s)
+  ✓   3 [chromium] › tests/uc1-uc2.spec.ts:85:3 › UC-1 Add pet (W1) and UC-2 Book visit (W2) › UC-1 A1: rejected birth date is corrected, then the pet is saved (1.8s)
+  ✓   4 [chromium] › tests/uc1-uc2.spec.ts:99:3 › UC-1 Add pet (W1) and UC-2 Book visit (W2) › UC-1 A2: boundary values accepted (born today, 30-char name, cat) (1.6s)
+  ✓   5 [chromium] › tests/uc1-uc2.spec.ts:110:3 › UC-1 Add pet (W1) and UC-2 Book visit (W2) › UC-1 E1: future birth date is rejected and no pet is created (1.4s)
+  ✓   6 [chromium] › tests/uc1-uc2.spec.ts:122:3 › UC-1 Add pet (W1) and UC-2 Book visit (W2) › UC-1 E2: birth date older than 50 years is rejected and no pet is created (1.4s)
+  ✓   7 [chromium] › tests/uc1-uc2.spec.ts:131:3 › UC-1 Add pet (W1) and UC-2 Book visit (W2) › UC-1 E3: VET_ADMIN cannot add a pet (403, no leak, nothing stored) (154ms)
+  ✓   8 [chromium] › tests/uc1-uc2.spec.ts:144:3 › UC-1 Add pet (W1) and UC-2 Book visit (W2) › UC-2 main: owner admin books a visit for the pet created in UC-1 (1.7s)
+  ✓   9 [chromium] › tests/uc1-uc2.spec.ts:157:3 › UC-1 Add pet (W1) and UC-2 Book visit (W2) › UC-2 A1: a second visit is booked for the same pet (1.6s)
+  ✓  10 [chromium] › tests/uc1-uc2.spec.ts:169:3 › UC-1 Add pet (W1) and UC-2 Book visit (W2) › UC-2 A2: a visit is booked for a future date (1.8s)
+  ✓  11 [chromium] › tests/uc1-uc2.spec.ts:180:3 › UC-1 Add pet (W1) and UC-2 Book visit (W2) › UC-2 E1: visit without description cannot be submitted, nothing stored (1.5s)
+  ✓  12 [chromium] › tests/uc1-uc2.spec.ts:190:3 › UC-1 Add pet (W1) and UC-2 Book visit (W2) › UC-2 E2: VET_ADMIN cannot book a visit (403, nothing stored) (234ms)
+  ✘  13 [chromium] › tests/uc1-uc2.spec.ts:202:3 › UC-1 Add pet (W1) and UC-2 Book visit (W2) › UC-2 E3: visit through another owner URL is rejected [known defect #9] (157ms)
+
+  13 passed (16.0s)
