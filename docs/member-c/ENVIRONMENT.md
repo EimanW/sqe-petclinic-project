@@ -1,6 +1,6 @@
 # Member C local environment runbook
 
-Primary shell is Windows PowerShell 5.1 or newer. The 0.2 inventory is a historical read-only snapshot. Phase 1.1 execution is recorded under [Angular acquisition and compatibility](#angular-acquisition-and-compatibility). Backend startup, authentication, scanning and reset commands are for their named future phases. Expected HTTP responses come from source.
+Primary shell is Windows PowerShell 5.1 or newer. The 0.2 inventory is a historical snapshot. Phase 1.1 installed and compiled the pinned frontend. Phase 1.2 exercised the secured backend, H2 reset and Angular/browser pairing. Scanning and durability are separate work. [Phase 1.2 results](PHASE_1_2_RESULTS.md).
 
 ## Toolchain on 2026-11-28
 
@@ -23,109 +23,51 @@ Official references for version selection and installation. [Maven Wrapper](http
 
 ## Backend setup and seed check
 
-**Proposed Phase 1 commands.** Use a dedicated PowerShell window for the backend. Check the repo path, branch and revision against the reviewed handover before proceeding. Record the tested HEAD for every run. Maven startup can download dependencies and compile generated interfaces. Bind to loopback for the local run.
+From the team worktree, verify the branch, baseline and exact revision using the [handover](HANDOVER.md). Run the backend in a dedicated PowerShell window on Windows. The Maven distribution, plugin and dependency caches can be reused.
 
 ```powershell
-Set-Location -LiteralPath 'D:\SQE-Project\sqe-petclinic-project'
-git rev-parse --show-toplevel
-git remote get-url origin
 git status --short --branch
-if ((git branch --show-current) -ne 'feat/area3-24i-3014') { throw 'Unexpected branch' }
 git rev-parse HEAD 'baseline^{commit}'
 git merge-base --is-ancestor baseline HEAD
 if ($LASTEXITCODE -ne 0) { throw 'Baseline is missing from HEAD history' }
 
-Get-Command java
-java -version
-$env:JAVA_HOME
-if (-not $env:JAVA_HOME -or -not (Test-Path (Join-Path $env:JAVA_HOME 'bin\java.exe'))) {
-    throw 'JAVA_HOME must point to the Java 21 JDK'
-}
-& (Join-Path $env:JAVA_HOME 'bin\java.exe') -version
-Get-Item .\mvnw.cmd, .\.mvn\wrapper\maven-wrapper.jar
-Get-Content -LiteralPath .\.mvn\wrapper\maven-wrapper.properties
+$jdk = Join-Path $env:JAVA_HOME 'bin\java.exe'
+(Get-Command java.exe).Source
+& $jdk -version
 .\mvnw.cmd -v
 if ($LASTEXITCODE -ne 0) { throw 'Maven wrapper bootstrap failed' }
-.\mvnw.cmd spring-boot:run '-Dspring-boot.run.profiles=h2,spring-data-jpa' '-Dspring-boot.run.arguments=--server.address=127.0.0.1'
+
+netstat.exe -ano -p TCP | Select-String '^\s*TCP\s+\S+:9966\s+\S+\s+LISTENING'
+# Confirm port 9966 is free before starting the checkpoint backend.
+.\mvnw.cmd spring-boot:run '-Dspring-boot.run.profiles=h2,spring-data-jpa' '-Dspring-boot.run.arguments=--server.address=127.0.0.1' -B -ntp
 ```
 
-In a second PowerShell window, use source-reported synthetic pairs `admin/admin` and `vet/admin` at the prompts. Carry credentials only in the local session or approved local test-secret input. Keep API headers and passwords out of logs, traces, scripts and the repository. The PowerShell cmdlet below works on Windows PowerShell 5.1 with `-UseBasicParsing`. If using curl manually, spell it `curl.exe` to avoid PowerShell's `curl` alias and use `--user admin` or `--user vet` to prompt for a password.
+Wait for PetClinic startup and check that its JVM owns only the intended loopback listener. The runtime is Spring PetClinic REST under `/petclinic/api` with Basic auth supplied by the checked-in security configuration. [E-ENV-03 results](PHASE_1_2_RESULTS.md#secured-backend-and-h2-reset).
 
-**Proposed Phase 1 commands.** Verify authentication, role decisions and seed data with read-only requests. Expected results are 401 unauthenticated, 200 for admin owner read, 200 for vet clinic-directory read and 403 for vet owner read.
+In a second PowerShell window, supply the credentials for the two source-seeded accounts from the local session. Keep this window through the restart and enter the passwords interactively.
 
 ```powershell
-$api = 'http://localhost:9966/petclinic/api'
-$adminCredential = Get-Credential -UserName admin -Message 'Enter the local synthetic admin password'
-$vetCredential = Get-Credential -UserName vet -Message 'Enter the local synthetic vet password'
-function New-PetclinicBasicHeader([pscredential] $Credential) {
-    $pair = '{0}:{1}' -f $Credential.UserName, $Credential.GetNetworkCredential().Password
-    @{ Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($pair)) }
-}
-function Get-PetclinicStatus([string] $Uri, [hashtable] $Headers = @{}) {
-    try {
-        [int](Invoke-WebRequest -UseBasicParsing -Uri $Uri -Headers $Headers -ErrorAction Stop).StatusCode
-    } catch {
-        if (-not $_.Exception.Response) { throw }
-        [int]$_.Exception.Response.StatusCode
-    }
-}
-$adminHeaders = New-PetclinicBasicHeader $adminCredential
-$vetHeaders = New-PetclinicBasicHeader $vetCredential
-if ((Get-PetclinicStatus "$api/owners/1") -ne 401) { throw 'Expected unauthenticated 401' }
-if ((Get-PetclinicStatus "$api/owners/1" $adminHeaders) -ne 200) { throw 'Expected admin owner read 200' }
-if ((Get-PetclinicStatus "$api/vets" $vetHeaders) -ne 200) { throw 'Expected vet directory read 200' }
-if ((Get-PetclinicStatus "$api/owners/1" $vetHeaders) -ne 403) { throw 'Expected vet owner read 403' }
+$admin = Get-Credential -UserName admin -Message 'Local synthetic admin password'
+$vet = Get-Credential -UserName vet -Message 'Local synthetic vet password'
+$state = Join-Path $env:TEMP ("sqe-h2-marker-" + [guid]::NewGuid().ToString('N') + '.json')
 
-$seedOwner = Invoke-RestMethod -Uri "$api/owners/1" -Headers $adminHeaders
-$seedPet = Invoke-RestMethod -Uri "$api/owners/1/pets/1" -Headers $adminHeaders
-$seedTypes = Invoke-RestMethod -Uri "$api/pettypes" -Headers $adminHeaders
-if ($seedOwner.id -ne 1 -or $seedOwner.lastName -ne 'Franklin' -or
-    $seedPet.name -ne 'Leo' -or $seedPet.ownerId -ne 1 -or
-    -not ($seedTypes | Where-Object { $_.id -eq 1 -and $_.name -eq 'cat' })) {
-    throw 'H2 seed readback differs from source'
-}
-Start-Process 'http://localhost:9966/petclinic/swagger-ui.html'
+& .\scripts\team\verify-secured-h2.ps1 -Stage Seed -AdminCredential $admin -VetCredential $vet
+& .\scripts\team\verify-secured-h2.ps1 -Stage BeforeRestart -StatePath $state -AdminCredential $admin -VetCredential $vet
 ```
 
-When opening Swagger UI, use the local admin pair if the browser prompts. Confirm the UI renders and loads its API definition. The configured security chain requires authentication for all requests. Capture a sanitized status or screenshot. See [root README](../../readme.md), [main application properties](../../src/main/resources/application.properties) and [H2 seed](../../src/main/resources/db/h2/data.sql).
+The helper verifies HTTP 401/200/200/403, George Franklin, Leo and the pet types. BeforeRestart requires a fresh seed, verifies the generated Pet via separate read requests and records its path, name and the initial snapshot in the state file. Use the returned ID in the evidence.
 
-**Proposed Phase 1 commands.** Create an isolated reset marker through the ordinary W1 API after the auth and seed checks. Keep the second window open so the marker can be checked after restart.
+Stop the checkpoint backend in its own window with **Ctrl+C**. Confirm the listener disappeared with `netstat.exe -ano -p TCP`. If it persists, verify the startup PID against the owning PID before stopping the instance. Repeat the identical startup command and confirm the newly started JVM owns the port. In the credential session, verify the restored seed and absence of the marker.
 
 ```powershell
-$marker = 'Reset-' + [guid]::NewGuid().ToString('N').Substring(0, 12)
-$payload = @{
-    name = $marker
-    birthDate = '2020-01-01'
-    type = @{ id = 1; name = 'cat' }
-} | ConvertTo-Json -Depth 3
-$createdResponse = Invoke-WebRequest -UseBasicParsing -Uri "$api/owners/1/pets" -Method Post -Headers $adminHeaders -ContentType 'application/json' -Body $payload
-if ($createdResponse.StatusCode -ne 201) { throw 'Expected pet create 201' }
-$created = $createdResponse.Content | ConvertFrom-Json
-$markerUrl = "$api/owners/1/pets/$($created.id)"
-$beforeRestart = Invoke-RestMethod -Uri $markerUrl -Headers $adminHeaders
-if ($beforeRestart.name -ne $marker -or $beforeRestart.ownerId -ne 1) {
-    throw 'Reset marker did not persist in the original process'
-}
+& .\scripts\team\verify-secured-h2.ps1 -Stage AfterRestart -StatePath $state -AdminCredential $admin -VetCredential $vet
 ```
 
-In the backend window press **Ctrl+C** and confirm the wrapper’s batch prompt if shown. Wait for the foreground process to exit. From the second window, run `Test-NetConnection -ComputerName localhost -Port 9966 -InformationLevel Quiet` and expect `False`. If the port is still open, identify the listener with `Get-NetTCPConnection -LocalPort 9966 -State Listen` and verify ownership before taking action. Restart using the same wrapper startup command in the backend window. Then use the second window to verify the seed and marker.
-
-**Proposed Phase 1 commands after restart.**
-
-```powershell
-$ownerAfterRestart = Invoke-RestMethod -Uri "$api/owners/1" -Headers $adminHeaders
-$petAfterRestart = Invoke-RestMethod -Uri "$api/owners/1/pets/1" -Headers $adminHeaders
-if ($ownerAfterRestart.lastName -ne 'Franklin' -or $petAfterRestart.name -ne 'Leo' -or
-    @($ownerAfterRestart.pets | Where-Object { $_.name -eq $marker }).Count -ne 0 -or
-    (Get-PetclinicStatus $markerUrl $adminHeaders) -ne 404) {
-    throw 'Expected original H2 seed without the reset marker'
-}
-Remove-Variable adminCredential, vetCredential, adminHeaders, vetHeaders
-```
+Restart and verify `-Stage Seed` before any suite that depends on a pristine baseline. The marker state file contains only synthetic fixture data. [E-ENV-04 results](PHASE_1_2_RESULTS.md#secured-backend-and-h2-reset).
 
 ## Database strategy
 
-- **Primary Phase 1 proposal.** Use H2 with `spring-data-jpa` and security enabled for browser, role and workflow checks. `jdbc:h2:mem:petclinic` uses `DB_CLOSE_DELAY=-1` and `DB_CLOSE_ON_EXIT=FALSE`. Connections can close while the database survives in the JVM. Ending that JVM loses the database. Startup always initializes schema and synthetic seed rows from the selected platform. Verify that behavior with the marker check above. The Java test resources select HSQLDB by default. See [H2 properties](../../src/main/resources/application-h2.properties) and [test properties](../../src/test/resources/application.properties).
+- **Verified Phase 1.2 pairing.** H2 with `spring-data-jpa` and Basic security supported browser, role and workflow checks. `jdbc:h2:mem:petclinic` uses `DB_CLOSE_DELAY=-1` and `DB_CLOSE_ON_EXIT=FALSE`. Independent reads saw the created marker while that JVM was up. A replacement JVM restored the initial seed and the marker returned 404. The Java test resources select HSQLDB by default. [Reset evidence](PHASE_1_2_RESULTS.md#secured-backend-and-h2-reset) · [H2 properties](../../src/main/resources/application-h2.properties) · [Test properties](../../src/test/resources/application.properties).
 - **Test isolation.** Start from the seed per suite or equivalent isolated instance. Use unique synthetic records per case, pass the returned W1 Pet ID to W2, and serialize tests sharing a write fixture or give each worker its own instance. After successful writes, use independent reads of owner/pet and visit to compare IDs, values and record counts. For rejected writes, compare before and after snapshots of the relevant records and counts. For each measured k6 run, restart the same build, verify seeds, recreate identical fixtures and run the same preparation before measurement.
 - **Recovery.** Coordinate a separate Java integration configuration with Member A. Use an isolated real datasource, drive a representative write under a controlled failure and read committed rows outside the failed transaction with fresh queries. Restore the dependency, retry, then verify exactly one intended row and the correct foreign key. Confirm the selected profile explicitly so test-resource HSQLDB does not silently substitute for the intended database.
 - **Durable-storage evidence.** The brief requires persistent storage. H2 demonstrates relational write/readback within a process. Plan a separate PostgreSQL durability demonstration and confirm the eventual strategy with the team and instructor. Use the existing profile and Compose service, loopback-only port exposure and an approved named volume. Preserve security, create a unique Pet and Visit, restart the backend, then stop and restart or recreate the DB container with the same volume. Read back both IDs and associations after each restart and record the volume and profile. Use a fresh isolated volume for a new baseline. Any Compose override or shared change needs approval.
@@ -222,14 +164,56 @@ The download commands ran in an approved network session after the default shell
 
 ## Authentication and CORS
 
-For separately authorized Phase 1.2, run `npm.cmd start -- --host localhost --port 4200` from the sibling checkout with the pinned shell runtime. Use `http://localhost:4200/` for that run and record the actual browser origin.
+The original pin uses the absolute API base on port 9966. Chromium observed an unauthenticated owner GET with HTTP 401 and no allowed-origin header. A separate JSON POST probe issued an OPTIONS preflight, which also got 401 without that header. Chromium blocked the request before sending the POST. Direct API checks separated missing or invalid Basic credentials (401) from an authenticated vet's owner denial (403). [Direct browser output](evidence/environment/E-ENV-05/2026-11-28-01/browser-direct-approved.log).
 
-1. Run the direct backend checks above with security enabled. Verify the three role decisions and unauthenticated status before troubleshooting the frontend.
-2. At the pinned SHA, inspect API base/environment, routes, HttpClient registration, interceptors, credential options and W1/W2 request bodies. Open an Owner and inspect the browser’s requests, preserving only sanitized evidence.
-3. Observe the browser’s actual cross-origin request behavior. The two dev ports make the default endpoints different origins. Check `OPTIONS` when issued, allowed origin/method/headers and the follow-up response. Spring Security requires authentication and the inspected chain contains no explicit CORS setup. Controller CORS annotations alone leave preflight behavior unverified.
-4. Use the observed request sequence to distinguish 401 authentication, owner-role 403 after authenticated direct checks, a browser-blocked preflight, a routing 404, and bad payload/validation responses. Confirm which layer issued each status.
-5. Evaluate Playwright browser-context `httpCredentials` scoped to the intended backend origin, one context per role, and verify whether the actual Angular requests carry the intended credentials. Browser behavior and the API request context can differ. If cross-origin setup fails, consider an approved loopback development proxy limited to the Petclinic API path and a relative API base. Verify its exact routing and per-role authentication. Use sanitized evidence and keep credentials away from unrelated requests.
-6. Coordinate any application-level adjustment with Member A. Keep the assessment backend security-enabled. Any explicitly approved UI-only security-disabled profile needs separate evidence and must be excluded from security assessment results. [Playwright browser context options](https://playwright.dev/docs/api/class-browser#browser-new-context) · [Backend security chain](../../src/main/java/org/springframework/samples/petclinic/security/BasicAuthenticationConfig.java).
+Use a PowerShell session with the same verified portable Node/npm activated on PATH as in [Phase 1.1 reproduction](#reproduce-the-phase-11-setup-on-windows-x64). Keep the backend running with the secured H2 profile. From the team worktree use the startup helper in its own window. Use the same browser origin, `http://localhost:4200`, for both modes. Stop the foreground Angular process before switching modes.
+
+```powershell
+powershell.exe -NoProfile -File .\scripts\team\start-angular-runtime.ps1 -Mode Direct
+powershell.exe -NoProfile -File .\scripts\team\start-angular-runtime.ps1 -Mode Proxy
+```
+
+Direct serves the verified sibling checkout. Proxy archives the exact pin to a uniquely named temporary working directory, checks the copied lockfile, reuses the installed packages by copying `node_modules`, and changes the development API base to `/petclinic/api/` in that directory. It passes the merged `e2e/ui-setup/proxy.conf.json` directly to Angular. The source checkout, production environment, shared proxy and lockfiles are preserved. The localhost origin matches the team suite. Angular binds to IPv4 loopback, including when serving a URL addressed as localhost.
+
+Use the integrated package in a separate PowerShell. The Chromium cache can be reused when it matches the team lock. The Phase 1.2 run selected a checkpoint-specific cache under `%TEMP%` with `PLAYWRIGHT_BROWSERS_PATH`. That variable must match between installation and each test or probe invocation.
+
+```powershell
+Push-Location e2e
+try {
+    npm.cmd ci
+    if ($LASTEXITCODE -ne 0) { throw 'Locked E2E install failed' }
+    .\node_modules\.bin\playwright.cmd --version
+    .\node_modules\.bin\playwright.cmd install --list
+    # Run only if the locked Chromium build is missing from the selected cache.
+    .\node_modules\.bin\playwright.cmd install chromium
+    if ($LASTEXITCODE -ne 0) { throw 'Chromium installation failed' }
+    .\node_modules\.bin\playwright.cmd test --list
+    if ($LASTEXITCODE -ne 0) { throw 'Team E2E listing failed' }
+    $env:PLAYWRIGHT_HTML_OUTPUT_DIR = Join-Path $env:TEMP ("sqe-team-report-" + [guid]::NewGuid().ToString('N'))
+    $results = Join-Path $env:TEMP ("sqe-team-results-" + [guid]::NewGuid().ToString('N'))
+    # Run with the proxy up and a verified fresh H2 seed.
+    .\node_modules\.bin\playwright.cmd test "--output=$results"
+    $suiteExit = $LASTEXITCODE
+    "Team suite exit=$suiteExit"
+} finally {
+    Pop-Location
+}
+```
+
+The Member C diagnostic uses the same locked browser. Run `node.exe scripts/team/probe-secured-browser.cjs direct` with the direct server to reproduce the CORS observations. In proxy mode, populate the two session-local password variables from the prompted credentials. The independent API context reads the backend directly and checks the returned IDs, values and associations.
+
+```powershell
+$env:PETCLINIC_LOCAL_ADMIN_PASSWORD = $admin.GetNetworkCredential().Password
+$env:PETCLINIC_LOCAL_VET_PASSWORD = $vet.GetNetworkCredential().Password
+try {
+    node.exe scripts/team/probe-secured-browser.cjs proxy
+    "Secured browser probe exit=$LASTEXITCODE"
+} finally {
+    Remove-Item Env:PETCLINIC_LOCAL_ADMIN_PASSWORD,Env:PETCLINIC_LOCAL_VET_PASSWORD
+}
+```
+
+Keep the original HTML report, traces, video and screenshots in restricted local evidence. Keep captured authorization headers out of versioned logs. The compatibility run and separate environment probe are recorded in [E-ENV-05](PHASE_1_2_RESULTS.md#secured-angular-pairing).
 
 ## Reproducible submission and installation order
 
@@ -237,7 +221,7 @@ Record the backend SHA, frontend URL and accepted full SHA, manifest/lock checks
 
 | Phase | Proposed order |
 | --- | --- |
-| 1 | Verify the frontend pin and lock inputs. Obtain a compatible exact Node release if needed. Bootstrap the Maven wrapper from its configured distribution, start and verify the backend, run `npm.cmd ci` in the pinned frontend, then verify secured UI integration. Agree on the team Playwright package, create its locked installation, and run `.\node_modules\.bin\playwright.cmd install chromium` only if the required build is missing. Review download/network access for Maven, npm and browsers. |
+| 1 | Verify the frontend pin and lock inputs. Obtain the exact portable Node release if missing. Bootstrap Maven, start and verify the backend, acquire and install the pinned Angular checkout if needed, then run the verified disposable proxy. Use `npm.cmd ci` in the existing `e2e/` package. Install its required Chromium only if absent. |
 | 5 | Add pinned Lighthouse and `@axe-core/playwright` in the approved team package, reuse a compatible browser and verify both tools reach the intended authenticated state. |
 | 6 | Obtain the official pinned ZAP installer or package and Dependency-Check release or approved Maven plugin. Confirm Java requirements, passive local capture configuration and vulnerability data access. Document external download, manual install prompts and any optional feed credentials kept locally. |
 | 7 | Reuse detected Grafana k6, inspect the future script and perform the local smoke before measured runs. |
@@ -248,8 +232,8 @@ Record the backend SHA, frontend URL and accepted full SHA, manifest/lock checks
 
 | Classification | Dependency and owner |
 | --- | --- |
-| Blocks Phase 1 completion · team coordination | The exact frontend and portable pair were selected for evaluation. The team approves adoption after secured runtime proof. A and C verify Basic authentication, role decisions, browser CORS and route/payload compatibility. Backend startup and clean H2 seed/reset remain open. |
-| Conditional access dependency · Phase 1 | Phase 1.1 acquired the frontend and portable runtime through approved network access. Verify Maven and browser download access only in their authorized checkpoints. |
+| Blocks shared adoption · team coordination | Phase 1.2 verified the secured pairing and documented the Angular rendering incompatibility. Eiman and Hamza still need to confirm pin adoption, suite maintainers, contribution conventions and expectations for the spec merged on hosted master through PR #12. |
+| Conditional access dependency · Phase 1 | Approved local runs resolved locked npm and Chromium downloads and Windows child-process restrictions. A clean-machine reproduction remains pending. |
 | Requires instructor confirmation · team coordination | Confirm what persistent storage evidence the assessor expects. Agree with A on the optional PostgreSQL demonstration, image/volume handling and evidence scope. H2 can support initial reproducible testing. |
 | Blocks later implementation · team coordination | All approve at least eight functional requirements with at least three per workflow and four source-grounded rules. B leads duplicate and association expectations with A/C. Confirm a defensible state transition and compound decision. Seek instructor clarification if the transition’s eligibility is uncertain. |
 | Blocks later implementation · team coordination | C coordinates the shared use-case split of two per member before flow design, and confirms the canonical shared documents. A/B/C provide optimistic, most likely and pessimistic estimates before their respective implementations and begin recording actual effort as work occurs. |

@@ -54,29 +54,26 @@ Dated 2026-11-28 (Asia/Karachi). `ACCEPTED` records a student-authorized project
 
 ## D-06 — Determine browser authentication and CORS from runtime
 
-**2026-11-28 · PROPOSED**
+**2026-11-28 · VERIFIED FOR LOCAL PHASE 1.2**
 
-- **Context and alternatives.** Direct API success and browser requests have different paths. Origin-scoped credentials or a loopback development proxy with a relative API base.
-- **Selected option and rationale.** Check secured direct statuses and real browser flow first, then choose the least invasive working setup with A. A proxy adds routing/configuration to reproduce. Per-role contexts require careful credential scoping.
-- **Evidence.** [Authentication runbook](ENVIRONMENT.md#authentication-and-cors).
-- **Responsibility and approval.** C with A. prior exact-diff approval for shared changes.
+- The direct Angular origin hit HTTP 401 and lacked CORS permission on both the owner GET and JSON preflight.
+- The Phase 1.2 pairing uses the merged loopback proxy with a development-only relative API URL in a disposable workspace. It preserves the backend Basic challenge and uses separate browser contexts for admin and vet.
+- C owns the environment evidence. A must confirm the shared adoption and approve the exact diff for a shared change. [Authentication runbook](ENVIRONMENT.md#authentication-and-cors).
 - **Reconsideration trigger.** Reopen on preflight failure, missing credentials or role bleed.
 
 ## D-07 — Use H2 for local workflow reset
 
-**2026-11-28 · PROPOSED**
+**2026-11-28 · VERIFIED FOR LOCAL PHASE 1.2**
 
-- **Context and alternatives.** The default H2 profile has two seeded accounts. Java tests default to HSQLDB. Restart and reseed H2, use isolated per-worker instances, or use another approved profile.
-- **Selected option and rationale.** Verify restart reset. Use unique fixtures and serialize a shared database or isolate per worker. Process-local persistence gives repeatable tests and needs separate durability evidence.
-- **Evidence.** [Database strategy](ENVIRONMENT.md#database-strategy).
-- **Responsibility and approval.** C with A. agree the reset contract with A/B.
+- The secured H2 profile restored the initial seed after replacing the JVM. The marker was readable before restart and returned 404 afterward.
+- Start each compatible run from verified seed or use an isolated instance per worker. A and B must agree on the team fixture and reset convention. [Reset evidence](PHASE_1_2_RESULTS.md#secured-backend-and-h2-reset).
 - **Reconsideration trigger.** Revisit for nondeterministic or concurrent state changes.
 
 ## D-08 — Demonstrate durability separately with PostgreSQL
 
 **2026-11-28 · PROPOSED**
 
-- **Context and alternatives.** The brief requires persistent storage. The checked Compose service has no named data volume. Use H2 evidence if accepted, or demonstrate an isolated PostgreSQL volume across restarts.
+- The brief requires persistent storage. Phase 1.2 H2 demonstrates process-local relational readback and loss on JVM restart. The checked Compose service declares no named data volume. Instructor guidance on the required proof and approval for a separate demonstration remain pending.
 - **Selected option and rationale.** Ask the instructor to confirm expectations. Propose the PostgreSQL profile and an approved named volume with restart readback. Adds Docker and profile setup. H2 remains useful for two-account tests.
 - **Evidence.** [Durable storage plan](ENVIRONMENT.md#database-strategy).
 - **Responsibility and approval.** C and A. instructor interpretation and shared configuration approval.
@@ -86,10 +83,9 @@ Dated 2026-11-28 (Asia/Karachi). `ACCEPTED` records a student-authorized project
 
 **2026-11-28 · PROPOSED**
 
-- **Context and alternatives.** A/B need a common framework before writing their own flows. Use `tests/team/e2e/` or another canonical team-owned location.
-- **Selected option and rationale.** C maintains pinned runner, fixtures and smoke. Each member authors their own two cases. Separate role contexts and isolate writes. A common entry point simplifies reruns. Shared changes need coordination.
-- **Evidence.** [Phase 1.3](IMPLEMENTATION_PLAN.md#13--publish-the-shared-browser-framework-early).
-- **Responsibility and approval.** C with A/B. agree path and ownership before 1.3.
+- Reviewed master already provides `e2e/` with locked runner, Chromium config and teammate specs.
+- Use that package as the provisional shared entry point. C coordinates confirmation of maintainers, contribution conventions and separate role/fixture behavior with A and B.
+- A and B must confirm the assessed use-case split and review how the spec merged on hosted master through PR #12 fits the pinned environment. [Phase 1.3](IMPLEMENTATION_PLAN.md#13--adopt-the-shared-browser-framework).
 - **Reconsideration trigger.** Revisit if a canonical suite or different CI entry point is discovered.
 
 ## D-10 — Isolate the recovery test

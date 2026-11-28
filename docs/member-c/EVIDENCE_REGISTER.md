@@ -13,16 +13,27 @@ Allocate one stable ID per evidence obligation. Attach reruns to the same ID and
 
 Commit-preparation verification on 2026-11-28 inspected all seven E-ENV-02 files. The four published npm output streams match the original redirected files byte-for-byte, including the build stdout's mixed line endings and four padded table rows, and the terminal blank lines in the build and dependency-list stdout. The public metadata matches the retained private original after substitution of the temporary-directory prefix and the addition of the explanatory first line. A reviewer who needs the unredacted original can request private access from Member C. The live checkout, verified Node ZIP, package digests, compiled index and `-VerifyOnly` were checked locally. Install and compilation results are those of the original run.
 
+## Phase 1.2 evidence
+
+Executed on 2026-11-28 with backend `668a371cf4a180b2b6f9c868e14935df477177b2` and Angular `f497b8fd61ec9cb896aa09447263b8872fb233be`. Member C owns the local runtime evidence. The merged compatibility specs are Eiman's work. [Commands, revisions, provenance and restricted originals](PHASE_1_2_RESULTS.md).
+
+| ID | Requirements and cases | Actual evidence and result | Status and limits |
+| --- | --- | --- | --- |
+| E-ENV-03 | S06, S08 · setup | [Startup](evidence/environment/E-ENV-03/2026-11-28-01/startup-observed.log) and [auth/seed/OpenAPI](evidence/environment/E-ENV-03/2026-11-28-01/api-seed.log). Expected 401/200/200/403, plus invalid-credential 401. | Verified on loopback in secured H2. |
+| E-ENV-04 | S01, S08 · reset | [Marker](evidence/environment/E-ENV-04/2026-11-28-01/marker-before.log), [shutdown](evidence/environment/E-ENV-04/2026-11-28-01/restart-listener.log) and [restored seed](evidence/environment/E-ENV-04/2026-11-28-01/marker-after.log). Pet 14 read back in the first JVM and returned 404 after restart. | Verified for H2 reset. |
+| E-ENV-05 | S01, S03, S06, S08 · runtime diagnostic | [Direct CORS](evidence/environment/E-ENV-05/2026-11-28-01/browser-direct-approved.log), [proxy](evidence/environment/E-ENV-05/2026-11-28-01/proxy-routing.log), [independent browser and API](evidence/environment/E-ENV-05/2026-11-28-01/browser-workflows.log), and [team suite review](evidence/environment/E-ENV-05/2026-11-28-01/team-suite-review.log). | Both writes and independent relationships verified. The Owner detail rendering limitation and unchanged team suite failure are preserved. Browser use-case and security assessments have separate criteria. Full Playwright artifacts are private. |
+| E-ENV-06 | S01, S08 · durability decision | [Durability plan](PHASE_1_2_RESULTS.md#e-env-06-durability-plan) records observed H2 loss on restart and steps for an isolated PostgreSQL run across both restarts. | Plan updated. Team and instructor decision and execution authorization pending. |
+
+During Phase 1.2 commit review, Codex checked all 18 publishable logs against the recorded outcomes. The 22 listed restricted original digests and seven HTML attachment digests matched. The embedded report and both trace archives passed CRC checks, and selected startup and test excerpts matched the raw originals. A pattern-based review found no credential values in the publishable logs. Trace credentials and full attachments remain restricted, and private backup confirmation is pending.
+
+The staged evidence blobs matched all 18 original log files byte for byte. The evidence includes UTF-16 output in `api-seed.log`, `marker-before.log` and `restart-listener.log`. A CRLF-aware staged whitespace check isolated the original Angular table padding in lines 13–16 of `angular-direct-approved.log` and lines 15–18 of `angular-proxy-copy.log`, and the end-of-file blank output reported at line 13 of `proxy-routing.log`. The commit preserves those exact exceptions, encodings and raw line endings.
+
 ## Future evidence obligations
 
 Every row below has verification status **PLANNED**, actual path/link **pending**, tool version/revisions **pending**, actual date **pending** and result **not run or produced**. Case IDs marked pending must be bound before execution when applicable. Each row gives the expected artifact, intended generation method, relevant conditions, owner and outstanding dependency. Member A and GitHub artifacts stay at their canonical location if accessible.
 
 | ID | Checkpoint | Requirements and cases | Expected artifact and generating command/method | Conditions or limitations | Owner |
 | --- | --- | --- | --- | --- | --- |
-| E-ENV-03 | 1.2 | S06, S08 · setup checks | Java/Maven bootstrap and local Basic status/seed logs. Use the wrapper and runbook status checks. | Security enabled. Keep authenticated headers and passwords out of evidence. | C with A |
-| E-ENV-04 | 1.2 | S01, S08 · reset check | H2 marker readback before restart and verified seed/reset afterward. Use runbook marker and reset steps. | Same backend revision and H2 profile. Record instance, seed and restart. | C |
-| E-ENV-05 | 1.2 | S01, S03, S06, S08 · W1/W2 connectivity | Browser route and sanitized request status, relevant CORS observations and independent Pet/Visit readback. Use the secured browser runbook. | Exact paired revisions and origin/auth settings. No credential-bearing HTTP captures in public evidence. | C with A |
-| E-ENV-06 | 1.2 plan, execution subject to approval | S01, S08 · durability check | Storage decision and, if required, PostgreSQL profile/volume restart and readback logs. | Assessor guidance and approved isolated volume. Document both application and database restart and seed mode. | C with A |
 | E-UC-01 | 1.3 | S08, S09, C02 · smoke ID pending | Pinned Playwright/Chromium versions, nonempty test listing, smoke report and contributor instructions. Run scoped Playwright list and smoke. | Secured paired build and deterministic reset. | C |
 | E-UC-02 | 2 | S04, S05, S07, C01, M05 · six use cases pending | Approved use case and flow matrix with owners, IDs, oracles and screens. Peer review and count. | Team-approved test basis and agreement on all six case owners. | A/B/C |
 | E-UC-03 | 3 | S03, C02 · UC-C01, UC-C02 proposed | Member C Playwright report, results, persisted readbacks and W1→W2 ID chain. Run targeted Chromium flows. | Independent readbacks for success and rejection, with actual failures retained. | C |

@@ -12,7 +12,7 @@ Every continuation session reads these files before making changes:
 6. [Shared test plan](../test-management/TEST_PLAN.md), [GQM definitions](../test-management/GQM_METRICS.md) and [weekly reporting](../test-management/WEEKLY_PROGRESS_TEMPLATE.md) for the proposed management foundation.
 7. [Commit log](COMMIT_LOG.md) and [AI-use record](AI_USE_RECORD.md) for actual commits, assistance disclosures and student verification.
 
-Checkpoints 0.1–0.3 were committed and pushed. Phase 1.1 acquired and compiled the exact Angular candidate and documented the portable toolchain. The reported review and local two-commit series are recorded. Publication requires separate authorization. [Current handover](HANDOVER.md).
+Checkpoints 0.1–0.3 and both Phase 1.1 commits were pushed. The student integrated the reviewed master revision locally. Phase 1.2 records the secured runtime checks in four local commits and awaits a separate publication decision. [Current handover](HANDOVER.md).
 
 ## Fresh-chat continuation
 
@@ -20,4 +20,4 @@ Start every subsequent checkpoint or phase in a fresh Codex chat unless the stud
 
 Use the handover as the authoritative record of documented progress and check it against the actual worktree and Git state. Preserve and review any uncommitted checkpoint before continuing. Confirm the preceding checkpoint's commit and push have been resolved as instructed and obtain the separate authorization for the next checkpoint.
 
-The saved Phase 0 prompts and Phase 1.1 authorization materials are retained locally under `prompts/generated/`. The [AI-use record](AI_USE_RECORD.md#prompt-index-and-recovery) indexes these copies and identifies prompts still to recover. Git ignores `generated/`. For a fresh clone or missing copy, recover the prompt from the student's private backup or the original chat attachment and supply it privately to the next session.
+The saved Phase 0 and Phase 1 prompts are retained locally under `prompts/generated/`. The [AI-use record](AI_USE_RECORD.md#prompt-index-and-recovery) indexes these copies and identifies prompts still to recover. Git ignores `generated/`. For a fresh clone or missing copy, recover the prompt from the student's private backup or the original chat attachment and supply it privately to the next session.

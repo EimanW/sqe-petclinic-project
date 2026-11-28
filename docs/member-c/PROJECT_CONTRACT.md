@@ -22,7 +22,7 @@ Capture the upstream baseline, integrated team revision, frontend pin and Member
 | Member C | Area 3, including two owned use cases, shared Playwright conventions, usability, accessibility, defensive security, performance and recovery. Leads the shared test plan, weekly reporting and completion report. |
 | All members | Coordinate shared scope, risks, release criteria and documentation. Supply individual estimates, actual effort, commits and AI-use verification. Each member must be able to explain the evidence in the viva. |
 
-Keep original tests apart from upstream tests. Current team Java tests are under `src/test/java/org/springframework/samples/petclinic/team/`. Confirm `tests/team/e2e/` or a team-approved equivalent before adding Playwright. Add no teammate-owned flows without explicit coordination. Reuse shared documents that exist. If the team has no shared location, propose `docs/test-management/` for a single shared copy.
+Keep original tests apart from upstream tests. Current team Java tests are under `src/test/java/org/springframework/samples/petclinic/team/`. The integrated `e2e/` package is the provisional shared browser entry point. Confirm maintainers, contribution conventions and case ownership before changing it. Reuse shared documents that exist. If the team has no shared location, propose `docs/test-management/` for a single shared copy.
 
 ## Authority and Git checkpoints
 

@@ -80,7 +80,7 @@ See [OpenAPI lines 2157–2182 and 2268–2309](../../src/main/resources/openapi
 
 | Work | Proposed path and ownership |
 | --- | --- |
-| Browser framework and cases | `tests/team/e2e/` for config, locked dependencies and fixtures maintained by C, with A, B and C each owning their own use cases and flows. |
+| Browser framework and cases | Reviewed master `73ccbf1` already provides `e2e/`, the provisional runtime reference. A, B and C still need to confirm maintainers, contribution conventions and who owns each assessed case. [Source inventory and runtime evaluation](PHASE_1_2_RESULTS.md#team-browser-suite). |
 | Accessibility | `tests/team/accessibility/` for scripts and `docs/member-c/evidence/accessibility/` for approved reports. |
 | Defensive security | `tests/team/security/` for scoped role checks, passive assessment and dependency tooling, and `docs/member-c/evidence/security/` for approved reports. |
 | Performance | `tests/team/performance/` for k6 and `docs/member-c/evidence/performance/` for raw and summarized outputs. |

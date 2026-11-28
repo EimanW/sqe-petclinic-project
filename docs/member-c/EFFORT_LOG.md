@@ -26,7 +26,7 @@ Phase 1.1 entry on 2026-11-28 preserved the prospective Area 3 estimate (44 / 79
 | --- | --- | ---: | ---: | ---: | ---: | --- |
 | 1.1 | Angular pin, Node selection and reproducible acquisition | 2 | 4 | 8 | 4.33 | Existing runbook and candidate. Allow time for download or engine problems. |
 | 1.2 | Secured browser/API pairing, seed/reset and storage plan | 4 | 8 | 16 | 8.67 | Includes observed CORS/auth diagnosis. Shared source changes and approved durability execution may need re-estimation. |
-| 1.3 | Shared Playwright framework, fixtures, smoke and handoff | 5 | 9 | 16 | 9.50 | One package with pinned Chromium. C provides initial contributor instructions. |
+| 1.3 | Adopt existing Playwright package, fixtures, smoke and handoff | 5 | 9 | 16 | 9.50 | Original proposed estimate retained. Re-estimate prospectively after the team confirms shared scope. |
 | 2 | Team coordination and Member C use case specifications | 3 | 5 | 9 | 5.33 | Two C cases and shared flow conventions. Excludes writing A/B's cases. |
 | 3 | Implement, run and diagnose C browser flows | 6 | 11 | 20 | 11.67 | At least ten flows with readback. Estimate assumes a working shared framework. |
 | 4 | Two automated usability tasks | 2 | 4 | 7 | 4.17 | Reuse suitable flow fixtures and assertions. |
@@ -54,5 +54,6 @@ Add a row per work session, with one entry per contributor when multiple people 
 | Date (Asia/Karachi) | Owner | Checkpoint and task | Attended person-hours | Unattended elapsed hours | Evidence or work note | Change from estimate |
 | --- | --- | --- | ---: | ---: | --- | --- |
 | 2026-11-28 | C | Phase 1.1 local Angular setup | Unknown · student input pending | `npm ci` 217.09 s, `npm ls --depth=0` 4.05 s, `npm run build` 15.17 s | Automated command durations only. See [E-ENV-02](EVIDENCE_REGISTER.md#existing-documentation-evidence). | Pending approved baseline and attended effort |
+| 2026-11-28 | C | Phase 1.2 secured runtime, reset and browser compatibility | Unknown · student input pending | Backend startup 8.596 s initially and 7.605 s after the fully captured reset. Angular bundles 19.997 s direct and 16.978 s proxied. Team runner 9.012 s. | Automated tool times only. The student performed the synchronization merge. Their attended hours and approval of the proposed Phase 1.2 estimate of 8.67 person-hours remain pending. [Runtime results](PHASE_1_2_RESULTS.md). | Pending approved baseline and attended effort |
 
 Aggregate these rows weekly and compare approved estimates with actual effort at completion. [Weekly template](../test-management/WEEKLY_PROGRESS_TEMPLATE.md) · [Manual action MA-08](MANUAL_ACTIONS.md).
