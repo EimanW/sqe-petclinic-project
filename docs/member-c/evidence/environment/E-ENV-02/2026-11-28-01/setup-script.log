@@ -1,0 +1,16 @@
+Windows PowerShell 5.1.26100.9711 on 2026-11-28 (Asia/Karachi), before build verification
+System.Management.Automation.Language.Parser.ParseFile on scripts/team/setup-angular.ps1
+powershell.exe -NoProfile -File scripts/team/setup-angular.ps1 -VerifyOnly
+exit=0. Local temporary-directory prefix represented as %TEMP%.
+Windows PowerShell parser: no errors
+Angular f497b8fd61ec9cb896aa09447263b8872fb233be at D:\SQE-Project\spring-petclinic-angular (https://github.com/spring-petclinic/spring-petclinic-angular.git)
+Node v24.22.3 at %TEMP%\sqe-area3-node-1d3d989034c645879d60f7f17a6dadd6\node-v24.22.3-win-x64\node.exe; npm 11.19.1 at %TEMP%\sqe-area3-node-1d3d989034c645879d60f7f17a6dadd6\node-v24.22.3-win-x64\npm.cmd
+package-lock.json SHA-256 before install: 37D3D1196E6D9F9C3FC754DFDF69F7C52E610ECEB9C6B80FEB17407441FA6C92
+Pinned checkout and runtime verified.
+
+Disposable PowerShell/Git fixture using -ProjectRoot and -VerifyOnly. Expected refusal exit codes below.
+Expected the PetClinic team worktree root (exit 1)
+Expected a separate Git checkout at (exit 1)
+Unexpected Angular origin in (exit 1)
+Angular checkout has local changes (exit 1)
+Disposable fixture file preserved

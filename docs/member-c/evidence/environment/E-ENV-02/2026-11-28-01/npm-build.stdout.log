@@ -1,0 +1,18 @@
+
+> spring-petclinic-angular@11.2.11 build
+> ng build
+
+> Building...
+√ Building...
+Initial chunk files | Names         |  Raw size
+main.js             | main          |   3.16 MB | 
+styles.css          | styles        | 498.48 kB | 
+scripts.js          | scripts       | 107.78 kB | 
+polyfills.js        | polyfills     |  93.00 kB | 
+
+                    | Initial total |   3.86 MB
+
+Application bundle generation complete. [10.608 seconds] - 2026-11-28T05:50:53.679Z
+
+Output location: D:\SQE-Project\spring-petclinic-angular\dist
+

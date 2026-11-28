@@ -20,6 +20,8 @@ Checkpoint 0.1–0.3 personal effort and any original estimates remain unknown i
 
 These ranges are planning inputs prepared with Codex and await the student's confirmation. They assume an existing team backend, a single local dev machine, partial fixture reuse and timely A/B review. Human debugging and reviewed rework sit within the ranges. External waiting and unattended execution stay outside the totals.
 
+Phase 1.1 entry on 2026-11-28 preserved the prospective Area 3 estimate (44 / 79 / 144, expected 84.00) and Phase 1.1 estimate (2 / 4 / 8, expected 4.33). Both remain proposed. The student authorized technical work for 1.1 and supplied no estimate approval or actual person-hours. Baseline approval remains a management dependency independent of the source and tooling checks.
+
 | Phase | Task | Optimistic | Most likely | Pessimistic | Expected | Assumption or uncertainty |
 | --- | --- | ---: | ---: | ---: | ---: | --- |
 | 1.1 | Angular pin, Node selection and reproducible acquisition | 2 | 4 | 8 | 4.33 | Existing runbook and candidate. Allow time for download or engine problems. |
@@ -51,6 +53,6 @@ Add a row per work session, with one entry per contributor when multiple people 
 
 | Date (Asia/Karachi) | Owner | Checkpoint and task | Attended person-hours | Unattended elapsed hours | Evidence or work note | Change from estimate |
 | --- | --- | --- | ---: | ---: | --- | --- |
-| Pending entry | | | | | | |
+| 2026-11-28 | C | Phase 1.1 local Angular setup | Unknown · student input pending | `npm ci` 217.09 s, `npm ls --depth=0` 4.05 s, `npm run build` 15.17 s | Automated command durations only. See [E-ENV-02](EVIDENCE_REGISTER.md#existing-documentation-evidence). | Pending approved baseline and attended effort |
 
 Aggregate these rows weekly and compare approved estimates with actual effort at completion. [Weekly template](../test-management/WEEKLY_PROGRESS_TEMPLATE.md) · [Manual action MA-08](MANUAL_ACTIONS.md).

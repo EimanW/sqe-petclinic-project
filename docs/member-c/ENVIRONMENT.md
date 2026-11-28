@@ -1,12 +1,12 @@
 # Member C local environment runbook
 
-Primary shell is Windows PowerShell 5.1 or newer. The environment audit used read-only checks. All setup, startup, authentication, scan and reset blocks below are **proposed for the named future phase**. Expected HTTP responses come from source.
+Primary shell is Windows PowerShell 5.1 or newer. The 0.2 inventory is a historical read-only snapshot. Phase 1.1 execution is recorded under [Angular acquisition and compatibility](#angular-acquisition-and-compatibility). Backend startup, authentication, scanning and reset commands are for their named future phases. Expected HTTP responses come from source.
 
 ## Toolchain on 2026-11-28
 
 | Tool | Detected | Requirement and compatibility | Verification | Installation and phase |
 | --- | --- | --- | --- | --- |
-| Git | 2.51.2.windows.1 | Local reads worked. The project requires preserved history and a pin. | `git --version` and `git ls-remote` | Reuse in Phase 0 onward. Hosted access still needs verification. |
+| Git | 2.51.2.windows.1 | Local reads worked. The project requires preserved history and a pin. | `git --version` and `git ls-remote` | Reuse in Phase 0 onward. Hosted access was pending at the 0.2 audit. |
 | Java / `JAVA_HOME` | Microsoft OpenJDK 21.0.12.1. `JAVA_HOME` resolves to the installed JDK and `bin/java.exe` exists. | Java 21 matches CI. Maven and application execution are pending. | `java -version` and the JDK check below | Reuse in Phase 1. |
 | Maven wrapper | Tracked wrapper JAR and launchers. Wrapper 3.3.4 configured for Maven 3.10.0. Standalone `mvn` was not found on PATH. | Repository pin. Successful wrapper bootstrap and parent/dependency resolution are pending. | `Get-Content .mvn/wrapper/maven-wrapper.properties`, then `.\mvnw.cmd -v` in Phase 1 | Wrapper downloads the pinned Maven distribution if uncached. Reuse wrapper. |
 | Node.js / npm | Node 24.11.0 and npm 11.6.1 | The Angular branch manifest specifies 24.x. Angular 22 on the Node 24 line requires 24.15.0 or newer. Local Node is below that floor. Derive any additional floor from the approved checkout’s lockfile. | `node --version`, `npm.cmd --version` and manifest/lockfile inspection | In Phase 1 select an exact supported 24.x release for the approved Angular 22 checkout, then record the npm version used. Reuse npm if it satisfies the locked setup. |
@@ -133,7 +133,48 @@ Remove-Variable adminCredential, vetCredential, adminHeaders, vetHeaders
 
 ## Angular acquisition and compatibility
 
-The backend checkout contains no Angular package manifest, lockfile, submodule or team browser suite. The proposed frontend checkout is the sibling `D:\SQE-Project\spring-petclinic-angular`, which was absent. The REST project names the Angular project as its client. The Angular README documents the API base and `npm ci`, and does not supply a compatibility pin for this team fork. [Upstream REST documentation](../../readme.md) · [Angular README](https://github.com/spring-petclinic/spring-petclinic-angular/blob/master/README.md).
+### Phase 1.1 pinned checkout
+
+On 2026-11-28, Git 2.51.2.windows.1 cloned `https://github.com/spring-petclinic/spring-petclinic-angular.git` into `D:\SQE-Project\spring-petclinic-angular` and checked out `f497b8fd61ec9cb896aa09447263b8872fb233be` detached. The directory was absent on entry and clean after checkout. Commit `up Bootstrap version to 5.3 (#179)` is by Vitaliy Fedoriv, authored and committed 2026-08-06 09:15:39 +03:00, parent `122c227e7abc545427627677c9410b7621983c4e`. Backend source is at `e182f1333f3d1e9cd55d677839816905a17f4db2`. [Upstream commit](https://github.com/spring-petclinic/spring-petclinic-angular/commit/f497b8fd61ec9cb896aa09447263b8872fb233be) · [Acquisition output](evidence/environment/E-ENV-02/2026-11-28-01/acquisition.log).
+
+| Input | Pinned facts |
+| --- | --- |
+| Framework and compiler | Angular core, CLI, builder and compiler CLI `22.1.0`, TypeScript `6.0.3`, RxJS `7.8.2`, Playwright `1.61.1`. The manifest's application version is `11.2.11`. |
+| Runtime and package manager | Manifest `engines.node` is `24.x`, `.nvmrc` is `24`, and the tree has no `.node-version`, `.tool-versions`, `.npmrc`, `packageManager` field or root npm engine. The npm lock is `package-lock.json` v3. Locked Angular core, CLI and build require Node `^22.22.3 \|\| ^24.15.0 \|\| >=26.0.0`. CLI/build declare npm `^6.11.0 \|\| ^7.5.6 \|\| >=8.0.0`. TypeScript `6.0.3` is within Angular's `>=6.0.0 <6.1.0` range. [Angular version matrix](https://angular.dev/reference/versions). |
+| Selected tools | System Node `24.11.0` with npm `11.6.1` was at `C:\Program Files\nodejs`. No `nvm`, `fnm`, `volta`, `mise` or `nvs` command was found on PATH. The official portable x64 Node `24.22.3` with bundled npm `11.19.1` met all declared Node/npm engines across 653 lock entries. Session-local PATH selected both binaries from the portable directory. [Official Node archive](https://nodejs.org/en/download/archive/v24.22.3). |
+| Manifest and lock | Pre-install SHA-256 of `package.json` was `D5B905B530F96253B88EFCEE2E2BACA9AD8646DFA5F9E1DE75592808C7A35CFB`. Pre-install `package-lock.json` SHA-256 was `37D3D1196E6D9F9C3FC754DFDF69F7C52E610ECEB9C6B80FEB17407441FA6C92`. |
+| Licence and notices | `package.json` declares MIT. Tracked source including `src/main.ts` and SVG assets carries Apache License 2.0 copyright headers. No standalone LICENSE, NOTICE or COPYING filename was found in the pinned tree. Preserve the existing declarations and headers. Clarify upstream licensing before repackaging or redistributing frontend files. The backend has its own [Apache 2.0 licence](../../LICENSE.txt). [Pinned frontend tree](https://github.com/spring-petclinic/spring-petclinic-angular/tree/f497b8fd61ec9cb896aa09447263b8872fb233be). |
+| npm scripts | `ng`, `start` (`ng serve`), `build` (`ng build`), `test`, `test:ci`, `test:coverage`, `lint` and `e2e` (`playwright test`). No root `preinstall`, `install`, `postinstall` or `prepare`. Lock-marked dependency hooks were checked before `ci`. They cover native loading/build for `@parcel/watcher`, `esbuild`, `lmdb` and `msgpackr-extract`, core-js postinstall and macOS-only `fsevents`. [Lifecycle definitions](evidence/environment/E-ENV-02/2026-11-28-01/acquisition.log). |
+| Angular config | `@angular/build:application` uses `src/main.ts` and outputs to `dist`. Default build uses source maps and no optimization. Production enables optimization, output hashing, licence extraction and the production environment replacement. `@angular/build:dev-server` serves the same build target by default, with a production target available and no configured development proxy. |
+| Upstream browser suite | `playwright.config.ts` selects Chromium, `127.0.0.1:4200` and `e2e/app.e2e-spec.ts`. That file covers welcome, API-backed list views, navigation, validation and responsive layouts using test data/routes. The suite was inspected only. |
+
+### Locked install and compilation
+
+On 2026-11-28, the Windows x64 evaluation used `%TEMP%\sqe-area3-node-1d3d989034c645879d60f7f17a6dadd6\node-v24.22.3-win-x64\node.exe` and `npm.cmd` from the same directory. `npm.cmd ci` added 522 packages and exited `0` in 217.09 seconds. `npm.cmd ls --depth=0` exited `0` and reported the resolved top-level versions. The `ci` output recorded Angular package deprecations, five install hooks without `allowScripts` coverage, an npm upgrade notice, and 36 reported vulnerabilities (20 moderate, 13 high, 3 critical). The vulnerability count is a Phase 6 input. The pinned dependency set was retained. [Install output](evidence/environment/E-ENV-02/2026-11-28-01/npm-ci.stdout.log) · [Install warnings](evidence/environment/E-ENV-02/2026-11-28-01/npm-ci.stderr.log) · [Installed versions](evidence/environment/E-ENV-02/2026-11-28-01/npm-ls.stdout.log).
+
+`npm.cmd run build` executed `ng build` and exited `0` in 15.17 seconds, with Angular reporting 10.608 seconds for bundle generation and a 3.86 MB initial bundle. Its stderr was empty. `dist/browser/index.html` was present under the sibling checkout. Git status remained clean and detached, and both SHA-256 values matched the pre-install files after installation and after compilation. This run verifies compilation. Backend connectivity and persistence remain Phase 1.2 work. [Angular build output](evidence/environment/E-ENV-02/2026-11-28-01/npm-build.stdout.log) · [Verification metadata](evidence/environment/E-ENV-02/2026-11-28-01/verification.log).
+
+### W1/W2 source compatibility
+
+W1 follows `/owners/:id` → `/owners/:id/pets/add`. W2 starts from **Add Visit** on the displayed Pet and follows `/pets/:id/visits/add`. Pet routes also declare `/pets`, `/pets/add` and `/pets/:id/edit`. The Visit router separately declares `/visits`, `/visits/add` and `/visits/:id/edit`. The selected W2 route supplies the Pet ID. Both successful submit callbacks navigate back to Owner detail, which renders the Pet and Visit lists. The two add templates have field-level validation feedback. The detail view and independent readback are the candidate success checks because the submit callbacks redirect immediately. The routes and callbacks were inspected in `owners/owner-detail`, `pets/pet-list`, `pets/pet-add`, `visits/visit-add` and their services under `src/app`.
+
+API paths are relative to `/petclinic/api`. A source match identifies compatible endpoint and field definitions. Request acceptance, UI outcomes and stored records require runtime verification. [Backend OpenAPI](../../src/main/resources/openapi.yml) · [Pinned frontend app](https://github.com/spring-petclinic/spring-petclinic-angular/tree/f497b8fd61ec9cb896aa09447263b8872fb233be/src/app).
+
+| Operation | Source assessment |
+| --- | --- |
+| Owner detail | **Source match.** `OwnerService.getOwnerById` reads `GET /owners/{ownerId}`. `OwnerRestControllerV1` returns the owner and the view uses `owner.pets`. |
+| Pet types | **Source match.** `PetTypeService.getPetTypes` reads `GET /pettypes`. The form binds the selected type object, which supplies the `id` and `name` used by the API model. Owner and vet admin roles can read the list. |
+| Add Pet | **Path and required fields match.** `PetService.addPet` posts to `/owners/{ownerId}/pets`. OpenAPI `PetFields` requires `name`, `birthDate` and a type object. The form formats dates as `YYYY-MM-DD`. The controller sets the Owner using the path and returns `201`. **Potential mismatch.** The client also serializes `id: null` and the full `owner`; confirm acceptance of these extras. The UI requires a leading ASCII letter or digit, while OpenAPI uses a nonblank name and the backend applies a separate birth-date rule. |
+| Pet detail readback | **Source match.** `PetService.getPetById` reads `GET /pets/{petId}`. W2 uses `ownerId` and `type` from the response. The backend also offers `GET /owners/{ownerId}/pets/{petId}` for association readback. Verify actual returned values and persistence. |
+| Add Visit | **Path and required fields match.** `VisitService.addVisit` posts to `/owners/{ownerId}/pets/{petId}/visits`, using the loaded Pet's `ownerId` and `id`. OpenAPI `VisitFields` requires `date` and `description`. The client formats the date as `YYYY-MM-DD`. The controller assigns the path Pet ID and returns `201`. **Potential mismatch.** The client also sends `id: null` and a nested `pet`; confirm acceptance. The controller uses the Pet path ID to associate the write and has no Owner–Pet association check in this method. The UI's description constraints do not mirror the backend's nonblank pattern. |
+| Visit readback | **Source match.** `VisitService.getVisitById` maps to `GET /visits/{visitId}`. Backend `Visit` includes `petId` and Pet responses can include `visits`. The UI returns to Owner detail, whose pet rows render their visit lists. Verify the stored Visit and Pet ID independently. |
+| Authentication | **Potential mismatch.** The pinned app registers `HttpClientModule` and uses `HttpClient` without an app login, custom HTTP interceptor, explicit `Authorization` header or `withCredentials` setting. The enabled backend uses HTTP Basic and requires authentication, with `OWNER_ADMIN` on these owner/pet/visit writes and reads. Verify browser credential handling and role outcomes in Phase 1.2. |
+| API base URL | **Source match.** `environment.ts` and `environment.prod.ts` both use `http://localhost:9966/petclinic/api/`. The backend declares port `9966`, context `/petclinic/` and that API server in OpenAPI. |
+| Browser origin and CORS | **Runtime unverified.** `localhost:4200` and `127.0.0.1:4200` are each cross-origin with the API. MVC controllers expose `errors` and `content-type` through `@CrossOrigin`. The security chain requires authentication and has no explicit CORS integration. Check the actual origin and preflight, especially JSON writes and authenticated requests, before choosing an integration mechanism. [Auth runbook](#authentication-and-cors). |
+
+### Checkpoint 0.2 historical observations
+
+The backend checkout contains no Angular package manifest, lockfile, submodule or team browser suite. The proposed frontend checkout is the sibling `D:\SQE-Project\spring-petclinic-angular`, which was absent. The REST project names the Angular project as its client. The Angular README documented the API base and `npm ci`. A compatible revision for this team fork was still to be evaluated. [Upstream REST documentation](../../readme.md) · [Angular README](https://github.com/spring-petclinic/spring-petclinic-angular/blob/master/README.md).
 
 | Evidence | Finding |
 | --- | --- |
@@ -143,49 +184,45 @@ The backend checkout contains no Angular package manifest, lockfile, submodule o
 | Browser routing and API | Branch source imports owner, pet and visit route groups. The development environment points to `http://localhost:9966/petclinic/api/`. OwnerService uses the `owners` resource. PetService posts to `owners/{ownerId}/pets` using the owner ID on its pet object. VisitService posts to `owners/{ownerId}/pets/{petId}/visits`. Recheck exact UI paths, request bodies, response mapping and validation in the same pinned checkout. [Routes](https://raw.githubusercontent.com/spring-petclinic/spring-petclinic-angular/master/src/app/app.routes.ts) · [Environment](https://raw.githubusercontent.com/spring-petclinic/spring-petclinic-angular/master/src/environments/environment.ts) · [Owner service](https://raw.githubusercontent.com/spring-petclinic/spring-petclinic-angular/master/src/app/owners/owner.service.ts) · [Pet service](https://github.com/spring-petclinic/spring-petclinic-angular/blob/master/src/app/pets/pet.service.ts) · [Visit service](https://raw.githubusercontent.com/spring-petclinic/spring-petclinic-angular/master/src/app/visits/visit.service.ts) |
 | Authentication evidence | The sampled service methods use Angular HttpClient and show no explicit Basic header on the inspected calls. Global interceptors, a supplied login flow and a working browser credential mechanism remain unverified at an exact revision. |
 
-**Proposed Phase 1 commands after separate acquisition approval.** Use the full team-approved SHA. The placeholder may refer to an approved evaluation pin before runtime validation. Adoption requires a working security-enabled pairing, including a real W1/W2 save and readback. If evaluation fails, record why and agree on the next candidate. For an Angular 22 Node 24 candidate, select an exact supported Node 24 patch after inspecting lockfile engines. Node’s official Windows ZIP can be used from a user-owned directory with session PATH changes once approved. An MSI may require administrative permission.
+### Reproduce the Phase 1.1 setup on Windows x64
+
+From the team root, download and activate the verified portable runtime in the current PowerShell session. The ZIP uses a new temporary directory and requires no administrative privileges. Reopen PowerShell to return to its usual PATH or prepend the same extracted directory in another session. Keep the ZIP and extracted runtime outside the team repository. [Official Node archive and checksums](https://nodejs.org/en/download/archive/v24.22.3).
 
 ```powershell
-$frontend = 'D:\SQE-Project\spring-petclinic-angular'
-$frontendOrigin = 'https://github.com/spring-petclinic/spring-petclinic-angular.git'
-$frontendSha = '<APPROVED_FULL_FRONTEND_SHA>'
-if ($frontendSha -notmatch '^[0-9a-f]{40}$') { throw 'Set the approved full frontend SHA' }
-if (Test-Path -LiteralPath $frontend) { throw 'Review the existing frontend checkout first' }
-git clone --no-checkout $frontendOrigin $frontend
-if ($LASTEXITCODE -ne 0) { throw 'Frontend clone failed' }
-Set-Location -LiteralPath $frontend
-git checkout --detach $frontendSha
-if ($LASTEXITCODE -ne 0 -or (git rev-parse HEAD) -ne $frontendSha) { throw 'Frontend pin mismatch' }
-git status --short --branch
-
-Get-Content .nvmrc
-$manifest = Get-Content -Raw package.json | ConvertFrom-Json
-$lock = Get-Content -Raw package-lock.json | ConvertFrom-Json
-$manifest.engines
-$manifest.dependencies.'@angular/core'
-$lock.packages.'node_modules/@angular/core'.engines
-$lock.packages.'node_modules/@angular/cli'.engines
-Get-FileHash -Algorithm SHA256 package-lock.json
-rg -n 'REST_API_URL|http\.post|Authorization|withCredentials|provideHttpClient|HTTP_INTERCEPTORS|path:' src/app src/environments
-node --version
-npm.cmd --version
-```
-
-Compare Node and npm with the pinned package and lockfile. For the Angular 22 and Node 24 pairing, enforce `>=24.15.0 <25.0.0` plus any stricter pinned dependency constraints. Then run the proposed Phase 1 commands below. Use a separate terminal for the foreground Angular session.
-
-```powershell
-$nodeVersion = [version](node -p 'process.versions.node')
-if ($nodeVersion.Major -ne 24 -or $nodeVersion -lt [version]'24.15.0') {
-    throw 'Angular 22 evaluation needs a compatible Node 24 release'
+$toolRoot = Join-Path ([IO.Path]::GetTempPath()) ('sqe-area3-node-' + [guid]::NewGuid().ToString('N'))
+New-Item -ItemType Directory -Path $toolRoot | Out-Null
+$zip = Join-Path $toolRoot 'node-v24.22.3-win-x64.zip'
+curl.exe --fail --silent --show-error --output $zip 'https://nodejs.org/dist/v24.22.3/node-v24.22.3-win-x64.zip'
+if ($LASTEXITCODE -ne 0) { throw 'Node ZIP download failed' }
+if ((Get-FileHash -Algorithm SHA256 -LiteralPath $zip).Hash -ne 'E612AF99F626AB415EA225AF6BCE5C971FEB448CB5CAE250BB1C3FA50C5F7D9F') {
+    throw 'Node archive SHA-256 mismatch'
 }
-npm.cmd ci
-if ($LASTEXITCODE -ne 0) { throw 'Locked Angular install failed' }
-npm.cmd start -- --host localhost --port 4200
+Expand-Archive -LiteralPath $zip -DestinationPath $toolRoot
+$nodeHome = Join-Path $toolRoot 'node-v24.22.3-win-x64'
+$env:Path = "$nodeHome;$env:Path"
+node.exe --version
+npm.cmd --version
+
+powershell.exe -NoProfile -File .\scripts\team\setup-angular.ps1
+if ($LASTEXITCODE -ne 0) { throw 'Angular setup failed' }
+Push-Location -LiteralPath ..\spring-petclinic-angular
+try {
+    npm.cmd run build
+    if ($LASTEXITCODE -ne 0) { throw 'Angular build failed' }
+    Get-FileHash -Algorithm SHA256 package.json,package-lock.json
+    git status --porcelain=v1 --branch --untracked-files=all
+} finally {
+    Pop-Location
+}
 ```
 
-From a separate PowerShell window run `Start-Process 'http://localhost:4200/'`. Watch the local browser’s Network panel while opening an existing owner and completing W1 and W2. Record the route, exact API URLs and statuses, UI result, and independent readback. Stop the Angular dev server with Ctrl+C. Confirm package files and checkout remain clean.
+The [setup script](../../scripts/team/setup-angular.ps1) defaults to the team root from its own location and accepts `-ProjectRoot` for another checkout. It checks the sibling directory and origin, pins the commit, verifies the exact portable pair, runs `npm.cmd ci`, and checks manifests and checkout integrity. `-VerifyOnly` checks an acquired checkout without reinstalling. Windows PowerShell validated the script and exercised `-VerifyOnly` successfully on this checkout. Disposable test directories exercised wrong root, nonrepo, wrong origin and dirty-checkout refusals. The acquisition and locked install were executed directly for E-ENV-02. A fresh-machine run of the script remains pending. [Script verification record](evidence/environment/E-ENV-02/2026-11-28-01/setup-script.log).
+
+The download commands ran in an approved network session after the default shell's team lookup failed. If the student's PowerShell can reach GitHub, Node's distribution and the npm registry, it can run the same setup. Preserve the original command output for any failure and resume at the failed step.
 
 ## Authentication and CORS
+
+For separately authorized Phase 1.2, run `npm.cmd start -- --host localhost --port 4200` from the sibling checkout with the pinned shell runtime. Use `http://localhost:4200/` for that run and record the actual browser origin.
 
 1. Run the direct backend checks above with security enabled. Verify the three role decisions and unauthenticated status before troubleshooting the frontend.
 2. At the pinned SHA, inspect API base/environment, routes, HttpClient registration, interceptors, credential options and W1/W2 request bodies. Open an Owner and inspect the browser’s requests, preserving only sanitized evidence.
@@ -211,15 +248,15 @@ Record the backend SHA, frontend URL and accepted full SHA, manifest/lock checks
 
 | Classification | Dependency and owner |
 | --- | --- |
-| Blocks Phase 1 completion · team coordination | Member C evaluates the exact frontend pin and Node release with A. The team approves the pairing after runtime proof. A and C verify Basic authentication, role decisions, browser CORS and route/payload compatibility. Backend startup and clean H2 seed/reset are still open. |
-| Requires student action · Phase 1 | For Phase 1, arrange external Git, Maven, npm and browser access. Install a compatible Node release if required for the accepted pin and record exact versions. |
+| Blocks Phase 1 completion · team coordination | The exact frontend and portable pair were selected for evaluation. The team approves adoption after secured runtime proof. A and C verify Basic authentication, role decisions, browser CORS and route/payload compatibility. Backend startup and clean H2 seed/reset remain open. |
+| Conditional access dependency · Phase 1 | Phase 1.1 acquired the frontend and portable runtime through approved network access. Verify Maven and browser download access only in their authorized checkpoints. |
 | Requires instructor confirmation · team coordination | Confirm what persistent storage evidence the assessor expects. Agree with A on the optional PostgreSQL demonstration, image/volume handling and evidence scope. H2 can support initial reproducible testing. |
 | Blocks later implementation · team coordination | All approve at least eight functional requirements with at least three per workflow and four source-grounded rules. B leads duplicate and association expectations with A/C. Confirm a defensible state transition and compound decision. Seek instructor clarification if the transition’s eligibility is uncertain. |
 | Blocks later implementation · team coordination | C coordinates the shared use-case split of two per member before flow design, and confirms the canonical shared documents. A/B/C provide optimistic, most likely and pessimistic estimates before their respective implementations and begin recording actual effort as work occurs. |
 | Blocks later CI and reporting · team coordination | A supplies genuine Surefire, JaCoCo, PIT, survivor and Sonar results. A/B/C coordinate nonempty selection, explicit recovery and all-test-level CI. The team supplies hosted failed-fix progression, blocked PR #6, Issues #8–#10 and protection evidence. |
-| Does not currently block documentation · student action | Current hosted branch tips are pending. Before any separately authorized push, compare a manual remote lookup with the local snapshots and inspect any new integration commits without merging or rebasing. |
+| Before separate publication authorization | The Phase 1.1 read-only hosted lookup matched the feature and master tracking refs. Repeat the comparison before a separately authorized push and inspect any newly observed integration commits. |
 
-The shell query for the team origin failed with `fatal: unable to access 'https://github.com/EimanW/sqe-petclinic-project.git/': Failed to connect to github.com port 443 via 127.0.0.1 after 2095 ms: Could not connect to server`. The upstream Angular query failed with the same proxy connection error after 2050 ms. Public team branch, commit and PR lookups returned cache misses. The approval-session shell retry likewise failed via `127.0.0.1` after 2119 ms. These are Codex session failures. The student's earlier successful 0.1 push demonstrates PowerShell access at that time. The 0.2 approval supplied no current lookup output. Run this read-only lookup in the student's PowerShell from the team worktree before a push. It does not update local references.
+At checkpoint 0.2, the shell query for the team origin failed with `fatal: unable to access 'https://github.com/EimanW/sqe-petclinic-project.git/': Failed to connect to github.com port 443 via 127.0.0.1 after 2095 ms: Could not connect to server`. The upstream Angular query failed with the same proxy connection error after 2050 ms. Public team branch, commit and PR lookups returned cache misses. The approval-session shell retry likewise failed via `127.0.0.1` after 2119 ms. These are Codex session failures. The student's earlier successful 0.1 push demonstrates PowerShell access at that time. The 0.2 approval supplied no current lookup output. Run this read-only lookup in the student's PowerShell from the team worktree before a push. It does not update local references.
 
 ```powershell
 git ls-remote origin refs/heads/master refs/heads/feat/area3-24i-3014

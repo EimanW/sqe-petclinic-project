@@ -19,27 +19,27 @@ Dated 2026-11-28 (Asia/Karachi). `ACCEPTED` records a student-authorized project
 - **Context and alternatives.** The backend contains no Angular package or submodule. Sibling checkout, nested checkout, or vendoring.
 - **Selected option and rationale.** Acquire in the sibling directory after 1.1 authorization. Reproduction depends on access to the pin or an agreed archive.
 - **Evidence.** [Environment runbook](ENVIRONMENT.md#angular-acquisition-and-compatibility).
-- **Responsibility and approval.** C. student must authorize 1.1.
+- **Responsibility and approval.** The student authorized Phase 1.1 acquisition. C verified the sibling checkout and origin.
 - **Reconsideration trigger.** Revisit if clean extraction cannot reproduce the frontend.
 
 ## D-03 — Evaluate an exact Angular revision
 
-**2026-11-28 · PROPOSED**
+**2026-11-28 · ACCEPTED FOR EVALUATION**
 
-- **Context and alternatives.** Public 0.2 evidence identifies a candidate without a secured runtime proof. Evaluate the known immutable candidate or compare a different exact SHA.
-- **Selected option and rationale.** Evaluate `f497b8fd61ec9cb896aa09447263b8872fb233be` once approved. A fixed baseline enables comparison but may need replacement.
-- **Evidence.** [Candidate and limitations](ENVIRONMENT.md#angular-acquisition-and-compatibility).
-- **Responsibility and approval.** C with A. student/team evaluation approval, then adoption after 1.2.
+- **Context.** The student authorized evaluation of `f497b8fd61ec9cb896aa09447263b8872fb233be`. The exact commit was acquired, installed and compiled.
+- **Selected option and rationale.** Keep this immutable checkout for the next separately authorized compatibility checks. The source review identifies payload, authentication and CORS questions.
+- **Evidence.** [Candidate, build and limitations](ENVIRONMENT.md#angular-acquisition-and-compatibility).
+- **Responsibility and approval.** C with A. Team adoption remains pending secured runtime evidence and team agreement.
 - **Reconsideration trigger.** Reopen on lock, licence, payload or secured browser incompatibility.
 
 ## D-04 — Select Node and npm from the pinned inputs
 
-**2026-11-28 · PROPOSED**
+**2026-11-28 · VERIFIED FOR PHASE 1.1**
 
-- **Context and alternatives.** Detected Node 24.11.0 is below the documented Angular 22 Node 24 floor. Select a compatible exact Node release or evaluate a compatible frontend candidate.
-- **Selected option and rationale.** Read exact package and lock engines before choosing the patch and npm. A toolchain change may require student access and a reinstall.
-- **Evidence.** [Toolchain](ENVIRONMENT.md#toolchain-on-2026-11-28).
-- **Responsibility and approval.** C. student approves any tool version change.
+- **Context.** System Node 24.11.0 falls below the exact Angular 22.1.0 Node 24 minimum of 24.15.0.
+- **Selected option and rationale.** Node 24.22.3 and bundled npm 11.19.1 from the official x64 ZIP satisfy the pinned engines and completed the locked install and build. Activation uses a session-local PATH and the portable runtime lives outside the team worktree.
+- **Evidence.** [Pinned toolchain and build](ENVIRONMENT.md#phase-11-pinned-checkout).
+- **Responsibility and approval.** C verified the portable pairing under the student's Phase 1.1 authorization. System-level changes require separate approval.
 - **Reconsideration trigger.** Revisit after an engine mismatch or changed frontend pin.
 
 ## D-05 — Keep security enabled for assessed workflows

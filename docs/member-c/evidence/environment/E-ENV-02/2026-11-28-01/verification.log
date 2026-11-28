@@ -1,0 +1,27 @@
+Local temporary-directory prefix represented as %TEMP%. The original metadata is retained in the ignored evidence directory.
+2026-11-28T10:46:58.0251107+05:00 Windows 10.0.26200.0 x64, PowerShell 5.1.26100.9711
+Team HEAD e182f1333f3d1e9cd55d677839816905a17f4db2
+Angular directory D:\SQE-Project\spring-petclinic-angular
+Angular HEAD f497b8fd61ec9cb896aa09447263b8872fb233be
+Node executable %TEMP%\sqe-area3-node-1d3d989034c645879d60f7f17a6dadd6\node-v24.22.3-win-x64\node.exe, version v24.22.3
+npm command %TEMP%\sqe-area3-node-1d3d989034c645879d60f7f17a6dadd6\node-v24.22.3-win-x64\npm.cmd, version 11.19.1
+Before install files
+D5B905B530F96253B88EFCEE2E2BACA9AD8646DFA5F9E1DE75592808C7A35CFB package.json
+37D3D1196E6D9F9C3FC754DFDF69F7C52E610ECEB9C6B80FEB17407441FA6C92 package-lock.json
+## HEAD (no branch)
+Locked Node/npm engine check using npm bundled semver, exit=0 {"versions":{"node":"24.22.3","npm":"11.19.1"},"entries":653,"mismatches":[]}
+2026-11-28T10:46:59.9934803+05:00 START npm.cmd ci
+2026-11-28T10:50:37.1334575+05:00 END npm.cmd ci, exit=0, elapsed_seconds=217.09
+After install files
+D5B905B530F96253B88EFCEE2E2BACA9AD8646DFA5F9E1DE75592808C7A35CFB package.json
+37D3D1196E6D9F9C3FC754DFDF69F7C52E610ECEB9C6B80FEB17407441FA6C92 package-lock.json
+## HEAD (no branch)
+2026-11-28T10:50:37.3688144+05:00 START npm.cmd ls --depth=0
+2026-11-28T10:50:41.4234653+05:00 END npm.cmd ls --depth=0, exit=0, elapsed_seconds=4.05
+2026-11-28T10:50:41.4355273+05:00 START npm.cmd run build
+2026-11-28T10:50:56.6078833+05:00 END npm.cmd run build, exit=0, elapsed_seconds=15.17
+After build files
+D5B905B530F96253B88EFCEE2E2BACA9AD8646DFA5F9E1DE75592808C7A35CFB package.json
+37D3D1196E6D9F9C3FC754DFDF69F7C52E610ECEB9C6B80FEB17407441FA6C92 package-lock.json
+## HEAD (no branch)
+Build output dist/browser/index.html (1235 bytes)

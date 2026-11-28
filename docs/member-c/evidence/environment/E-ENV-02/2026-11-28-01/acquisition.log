@@ -1,0 +1,58 @@
+Git 2.51.2.windows.1. Angular sibling was absent on entry.
+2026-11-28T10:42:47+05:00 (clone reflog time)
+git -c http.lowSpeedLimit=1000 -c http.lowSpeedTime=10 clone --no-checkout https://github.com/spring-petclinic/spring-petclinic-angular.git D:/SQE-Project/spring-petclinic-angular
+exit=0
+Cloning into 'D:/SQE-Project/spring-petclinic-angular'...
+
+2026-11-28T10:43:07+05:00 (checkout reflog time)
+git -C D:/SQE-Project/spring-petclinic-angular cat-file -t f497b8fd61ec9cb896aa09447263b8872fb233be
+git -C D:/SQE-Project/spring-petclinic-angular checkout --detach f497b8fd61ec9cb896aa09447263b8872fb233be
+git -C D:/SQE-Project/spring-petclinic-angular show -s --format='%H%n%P%n%an%n%aI%n%cI%n%s' HEAD
+git -C D:/SQE-Project/spring-petclinic-angular remote get-url origin
+git -C D:/SQE-Project/spring-petclinic-angular status --porcelain=v1 --branch --untracked-files=all
+checkout and verification exit=0
+commit
+HEAD is now at f497b8f up Bootstrap version to 5.3 (#179)
+f497b8fd61ec9cb896aa09447263b8872fb233be
+122c227e7abc545427627677c9410b7621983c4e
+Vitaliy Fedoriv
+2026-08-06T09:15:39+03:00
+2026-08-06T09:15:39+03:00
+up Bootstrap version to 5.3 (#179)
+https://github.com/spring-petclinic/spring-petclinic-angular.git
+## HEAD (no branch)
+
+Live read-only team lookup during Angular checkout
+git -c http.lowSpeedLimit=1000 -c http.lowSpeedTime=10 ls-remote origin refs/heads/master refs/heads/feat/area3-24i-3014
+exit=0
+e182f1333f3d1e9cd55d677839816905a17f4db2	refs/heads/feat/area3-24i-3014
+9e318fa35ec0917dec5be8009095bae44278b9c0	refs/heads/master
+
+Initial shell lookup of the same team refs, before the authorized network call, exit=128
+fatal: unable to access 'https://github.com/EimanW/sqe-petclinic-project.git/': Failed to connect to github.com port 443 via 127.0.0.1 after 2069 ms: Could not connect to server
+
+Official Windows x64 Node ZIP download and SHA-256 comparison
+curl.exe --fail --silent --show-error downloaded SHASUMS256.txt and node-v24.22.3-win-x64.zip from https://nodejs.org/dist/v24.22.3/
+Get-FileHash -Algorithm SHA256 confirmed the published ZIP hash before Expand-Archive. Runtime setup and npm version check exit=0.
+2026-11-28T10:44:20.6301281+05:00
+e612af99f626ab415ea225af6bce5c971feb448cb5cae250bb1c3fa50c5f7d9f  node-v24.22.3-win-x64.zip
+
+node.exe --version; npm.cmd --version
+v24.22.3
+11.19.1
+
+Locked package lifecycle script definitions from the npm registry (exit=0)
+@parcel/watcher/2.5.6
+{"preinstall":null,"install":"node scripts/build-from-source.js","postinstall":null}
+core-js/3.49.0
+{"preinstall":null,"install":null,"postinstall":"node -e \"try{require(\u0027./postinstall\u0027)}catch(e){}\""}
+esbuild/0.28.1
+{"preinstall":null,"install":null,"postinstall":"node install.js"}
+lmdb/3.5.6
+{"preinstall":null,"install":"node-gyp-build-optional-packages","postinstall":null}
+msgpackr-extract/3.0.4
+{"preinstall":null,"install":"node-gyp-build-optional-packages","postinstall":null}
+fsevents/2.3.2
+{"preinstall":null,"install":"node-gyp rebuild","postinstall":null}
+fsevents/2.3.3
+{"preinstall":null,"install":"node-gyp rebuild","postinstall":null}
