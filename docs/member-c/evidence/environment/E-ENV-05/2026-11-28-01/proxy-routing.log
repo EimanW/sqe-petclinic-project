@@ -1,0 +1,14 @@
+﻿2026-11-28T16:02:58.7205749+05:00
+668a371cf4a180b2b6f9c868e14935df477177b2
+f497b8fd61ec9cb896aa09447263b8872fb233be
+  TCP    127.0.0.1:4200         0.0.0.0:0              LISTENING       11468
+  TCP    127.0.0.1:9966         0.0.0.0:0              LISTENING       24488
+anonymous_proxy_curl_exit=0
+
+HTTP/1.1 401 Unauthorized
+www-authenticate: Basic realm="Realm", charset="UTF-8"
+GET http://localhost:4200/petclinic/api/owners/1 [admin] status=200 content-type=application/json ownerId=1 petIds=1
+GET /petclinic/owners status=200 content-type=text/html
+proxy_and_fresh_seed_exit=0
+
+

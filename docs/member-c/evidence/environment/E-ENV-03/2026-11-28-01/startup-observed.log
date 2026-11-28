@@ -1,0 +1,39 @@
+﻿2026-11-28T16:08:35.7075358+05:00
+668a371cf4a180b2b6f9c868e14935df477177b2
+git version 2.51.2.windows.1
+PowerShell 5.1.26100.9711
+JAVA_HOME=C:\Program Files\Microsoft\jdk-21.0.12.101-hotspot\
+java.exe=C:\Program Files\Microsoft\jdk-21.0.12.101-hotspot\bin\java.exe
+wrapperVersion=3.3.4
+distributionType=bin
+distributionUrl=https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.10.0/apache-maven-3.10.0-bin.zip
+wrapperUrl=https://repo.maven.apache.org/maven2/org/apache/maven/wrapper/maven-wrapper/3.3.4/maven-wrapper-3.3.4.jar
+.\mvnw.cmd spring-boot:run -Dspring-boot.run.profiles=h2,spring-data-jpa -Dspring-boot.run.arguments=--server.address=127.0.0.1 -B -ntp
+docs/member-c/evidence/environment/E-ENV-03/2026-11-28-01/backend-initial.log
+[INFO] Compiling 115 source files with javac [debug parameters release 17] to target\classes
+[INFO] Compiling 29 source files with javac [debug parameters release 17] to target\test-classes
+ :: Spring Boot ::                (v4.2.0)
+INFO  PetClinicApplication - Starting PetClinicApplication using Java 21.0.12.1 with PID 28140 (D:\SQE-Project\sqe-petclinic-project\target\classes started by Muhammad in D:\SQE-Project\sqe-petclinic-project)
+INFO  PetClinicApplication - The following 2 profiles are active: "h2", "spring-data-jpa"
+INFO  HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:petclinic user=SA
+	Database JDBC URL [jdbc:h2:mem:petclinic]
+INFO  H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:petclinic'
+INFO  TomcatWebServer - Tomcat started on port 9966 (http) with context path '/petclinic'
+   BasicAuthenticationConfig matched:
+      - @ConditionalOnProperty (petclinic.security.enable=true) matched (OnPropertyCondition)
+INFO  PetClinicApplication - Started PetClinicApplication in 8.596 seconds (process running for 9.769)
+docs/member-c/evidence/environment/E-ENV-04/2026-11-28-01/backend-restored.log
+[INFO] Compiling 115 source files with javac [debug parameters release 17] to target\classes
+[INFO] Compiling 29 source files with javac [debug parameters release 17] to target\test-classes
+ :: Spring Boot ::                (v4.2.0)
+INFO  PetClinicApplication - Starting PetClinicApplication using Java 21.0.12.1 with PID 24488 (D:\SQE-Project\sqe-petclinic-project\target\classes started by Muhammad in D:\SQE-Project\sqe-petclinic-project)
+INFO  PetClinicApplication - The following 2 profiles are active: "h2", "spring-data-jpa"
+INFO  HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:petclinic user=SA
+	Database JDBC URL [jdbc:h2:mem:petclinic]
+INFO  H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:petclinic'
+INFO  TomcatWebServer - Tomcat started on port 9966 (http) with context path '/petclinic'
+   BasicAuthenticationConfig matched:
+      - @ConditionalOnProperty (petclinic.security.enable=true) matched (OnPropertyCondition)
+INFO  PetClinicApplication - Started PetClinicApplication in 7.605 seconds (process running for 8.619)
+  TCP    127.0.0.1:9966         0.0.0.0:0              LISTENING       24488
+startup_log_inspection_exit=0

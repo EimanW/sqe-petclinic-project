@@ -1,0 +1,38 @@
+﻿2026-11-28T16:09:20.2886490+05:00
+Executed from e2e: .\node_modules\.bin\playwright.cmd test --output=../target/member-c-phase12/team-test-results
+Selected lines from the original team-suite.log
+Running 5 tests using 1 worker
+Error: expect(locator).toHaveValue(expected) failed
+Locator:  locator('#owner_name')
+Expected: "George Franklin"
+Received: " "
+Timeout:  5000ms
+1 failed
+3 did not run
+1 passed (9.0s)
+playwright_test_exit=1
+Private artifact digests and API trace entries
+4146fd1025d936c9b76e07fbb6ff279a858e4c918a65fe8a044bf46d9db29add  target/member-c-phase12/team-suite.log
+e81345b53c87b372d9d4a45e89eb5bef8e39382fdf55fa758d0fa3b5958bd609  target/member-c-phase12/team-report/index.html
+14099129a52a791e9c0fdef9e7c599cc0a01bf7a2131321f36362d2078d227fa  target/member-c-phase12/team-test-results/rbac-vet-Role-check-VET-AD-a9661-00-when-the-UI-loads-owners-chromium/trace.zip
+Embedded source contains password field: True
+GET http://localhost:4200/petclinic/api/owners 403
+GET http://localhost:4200/petclinic/api/owners -1
+Request Authorization header field present in trace: False
+5f61df9e4b505ff9bab611d9b0761b727fbec6ec49ed19b52503bd2e9e5ea05c  target/member-c-phase12/team-test-results/w1-w2-pet-visit-W1-W2-as-O-b57e3--adds-a-new-pet-to-an-owner-chromium/trace.zip
+Embedded source contains password field: True
+GET http://localhost:4200/petclinic/api/owners 200
+GET http://localhost:4200/petclinic/api/owners 200
+GET http://localhost:4200/petclinic/api/owners/1 200
+GET http://localhost:4200/petclinic/api/pettypes 200
+GET http://localhost:4200/petclinic/api/owners/1 200
+Request Authorization header field present in trace: True
+HTML report: {"duration": 9012.384, "startTime": 1795863782027, "stats": {"expected": 1, "flaky": 0, "ok": false, "skipped": 3, "total": 5, "unexpected": 1}}
+Private HTML attachment .png size=31789 digest=9798e91d36263141e82f1bd70a3a162dc58714b596fc4e7398a284447b241d9b
+Private HTML attachment .webm size=233602 digest=6781947d2ec14672e4ce5e86e8c055e8d12af363d4a55416f69865c993440718
+Private HTML attachment .md size=5516 digest=874c8e3d284830aad70e9069356b13121508ce4abe49a122ac5a4ae4f29335a1
+Private HTML attachment .png size=31761 digest=b652f1dc76adc993472c30d5db82e546b9c6b0767244d79b83243d8914b60514
+Private HTML attachment .zip size=435967 digest=14099129a52a791e9c0fdef9e7c599cc0a01bf7a2131321f36362d2078d227fa
+Private HTML attachment .zip size=958026 digest=5f61df9e4b505ff9bab611d9b0761b727fbec6ec49ed19b52503bd2e9e5ea05c
+Private HTML attachment .webm size=47230 digest=852ab6177313faa8d35f24acf9a07e20b5f564557c46937954c4c2a1187858a7
+artifact_audit_exit=0

@@ -1,0 +1,26 @@
+{"time":"2026-11-28T11:07:51.741Z","event":"runtime","mode":"proxy","ui":"http://localhost:4200","backend":"http://localhost:9966","node":"v24.22.3","chromium":"159.0.8154.6"}
+{"time":"2026-11-28T11:07:52.626Z","event":"browser GET","url":"http://localhost:4200/petclinic/api/owners/1","status":200}
+{"time":"2026-11-28T11:07:52.629Z","event":"owner detail after GET","url":"http://localhost:4200/petclinic/owners/1","name":" "}
+{"time":"2026-11-28T11:07:52.765Z","event":"browser GET","url":"http://localhost:4200/petclinic/api/owners/1","status":200}
+{"time":"2026-11-28T11:07:52.772Z","event":"W1 form before typing","ownerInput":" "}
+{"time":"2026-11-28T11:07:52.804Z","event":"W1 form after typing","ownerInput":"George Franklin"}
+{"time":"2026-11-28T11:07:52.989Z","event":"browser POST","url":"http://localhost:4200/petclinic/api/owners/1/pets","status":201,"fields":["birthDate","id","name","owner","type"],"name":"Runtime-fa5591e6c58e","type":{"name":"dog","id":2},"birthDate":"2024-06-15","ownerId":1,"location":"/api/pets/15","response":"{\"name\":\"Runtime-fa5591e6c58e\",\"birthDate\":\"2024-06-15\",\"type\":{\"name\":\"dog\",\"id\":2},\"id\":15,\"visits\":[],\"ownerId\":1}"}
+{"time":"2026-11-28T11:07:53.095Z","event":"independent API GET","url":"http://localhost:9966/petclinic/api/owners/1/pets/15","status":200}
+{"time":"2026-11-28T11:07:53.179Z","event":"independent API GET","url":"http://localhost:9966/petclinic/api/owners/1","status":200}
+{"time":"2026-11-28T11:07:53.180Z","event":"W1 readback","storedPet":{"name":"Runtime-fa5591e6c58e","birthDate":"2024-06-15","type":{"name":"dog","id":2},"id":15,"visits":[],"ownerId":1},"ownerId":1,"ownerPetIds":[1,14,15]}
+{"time":"2026-11-28T11:07:54.685Z","event":"W1 owner detail result","url":"http://localhost:4200/petclinic/owners/1","pet":"Runtime-fa5591e6c58e","visible":false}
+{"time":"2026-11-28T11:07:55.050Z","event":"W1 owner list result","url":"http://localhost:4200/petclinic/owners","pet":"Runtime-fa5591e6c58e","visible":true}
+{"time":"2026-11-28T11:07:55.375Z","event":"browser GET","url":"http://localhost:4200/petclinic/api/pets/15","status":200}
+{"time":"2026-11-28T11:07:55.460Z","event":"browser GET","url":"http://localhost:4200/petclinic/api/owners/1","status":200}
+{"time":"2026-11-28T11:07:55.460Z","event":"W2 form navigation","url":"http://localhost:4200/petclinic/pets/15/visits/add","petId":15}
+{"time":"2026-11-28T11:07:55.510Z","event":"W2 selected Pet displayed","pet":"Runtime-fa5591e6c58e","owner":"George Franklin"}
+{"time":"2026-11-28T11:07:55.654Z","event":"browser POST","url":"http://localhost:4200/petclinic/api/owners/1/pets/15/visits","status":201,"fields":["date","description","id","pet"],"date":"2026-11-28","description":"Runtime checkup fa5591e6c58e","petId":15,"location":"/api/visits/5","response":"{\"date\":\"2026-11-28\",\"description\":\"Runtime checkup fa5591e6c58e\",\"id\":5,\"petId\":15}"}
+{"time":"2026-11-28T11:07:55.750Z","event":"independent API GET","url":"http://localhost:9966/petclinic/api/visits/5","status":200}
+{"time":"2026-11-28T11:07:55.849Z","event":"independent API GET","url":"http://localhost:9966/petclinic/api/owners/1/pets/15","status":200}
+{"time":"2026-11-28T11:07:55.849Z","event":"W2 readback","storedVisit":{"date":"2026-11-28","description":"Runtime checkup fa5591e6c58e","id":5,"petId":15},"ownerId":1,"petVisitIds":[5]}
+{"time":"2026-11-28T11:07:57.361Z","event":"W2 owner detail result","url":"http://localhost:4200/petclinic/owners/1","pet":"Runtime-fa5591e6c58e","description":"Runtime checkup fa5591e6c58e","visible":false}
+{"time":"2026-11-28T11:07:57.698Z","event":"browser GET","url":"http://localhost:4200/petclinic/api/pets/15","status":200}
+{"time":"2026-11-28T11:07:57.788Z","event":"browser GET","url":"http://localhost:4200/petclinic/api/owners/1","status":200}
+{"time":"2026-11-28T11:07:57.816Z","event":"W2 previous visits result","url":"http://localhost:4200/petclinic/pets/15/visits/add","pet":"Runtime-fa5591e6c58e","description":"Runtime checkup fa5591e6c58e","visible":true}
+{"time":"2026-11-28T11:07:58.290Z","event":"vet browser owner search","url":"http://localhost:4200/petclinic/api/owners","status":403,"ownerLinks":0}
+browser_probe_exit=0

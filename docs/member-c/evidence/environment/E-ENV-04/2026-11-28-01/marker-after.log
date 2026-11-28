@@ -1,0 +1,14 @@
+﻿2026-11-28T16:00:46.1210478+05:00
+668a371cf4a180b2b6f9c868e14935df477177b2
+  TCP    127.0.0.1:9966         0.0.0.0:0              LISTENING       24488
+2026-11-28T16:00:46.2979662+05:00 stage=AfterRestart backend=http://127.0.0.1:9966/petclinic/api
+GET /owners/1 [anonymous] status=401 expected=401
+GET /owners/1 [admin] status=200 expected=200
+GET /vets [vet] status=200 expected=200
+GET /owners/1 [vet] status=403 expected=403
+GET /owners/1/pets/1 [admin] status=200 expected=200
+GET /pettypes [admin] status=200 expected=200
+Seed={"owner":{"id":1,"firstName":"George","lastName":"Franklin","petIds":[1]},"pet":{"name":"Leo","birthDate":"2010-09-07","type":{"name":"cat","id":1},"id":1,"visits":[],"ownerId":1},"petTypes":[{"name":"cat","id":1},{"name":"dog","id":2},{"name":"lizard","id":3},{"name":"snake","id":4},{"name":"bird","id":5},{"name":"hamster","id":6}],"vetIds":[1,2,3,4,5,6]}
+GET /owners/1/pets/14 [admin] status=404 expected=404
+Seed restored. Marker Reset-e033d13c4d61 is absent.
+after_restart_exit=0

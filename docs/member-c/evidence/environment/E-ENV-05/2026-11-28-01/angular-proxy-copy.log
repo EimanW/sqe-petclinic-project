@@ -1,0 +1,32 @@
+Angular f497b8fd61ec9cb896aa09447263b8872fb233be at D:\SQE-Project\spring-petclinic-angular (https://github.com/spring-petclinic/spring-petclinic-angular.git)
+Node v24.22.3 at C:\Users\Muhammad\AppData\Local\Temp\sqe-area3-node-1d3d989034c645879d60f7f17a6dadd6\node-v24.22.3-win-x64\node.exe; npm 11.19.1 at C:\Users\Muhammad\AppData\Local\Temp\sqe-area3-node-1d3d989034c645879d60f7f17a6dadd6\node-v24.22.3-win-x64\npm.cmd
+package-lock.json SHA-256 before install: 37D3D1196E6D9F9C3FC754DFDF69F7C52E610ECEB9C6B80FEB17407441FA6C92
+Pinned checkout and runtime verified.
+typescript 6.0.3
+@angular/cli 22.1.0
+@angular/core 22.1.0
+
+Reused installed dependencies (robocopy exit 1).
+Angular mode=Proxy workspace=C:\Users\Muhammad\AppData\Local\Temp\sqe-area3-angular-3dbc6d794b014a27999c687e45790602 browserOrigin=http://localhost:4200
+Prebundling has been configured but will not be used because caching has been disabled.
+❯ Building...
+✔ Building...
+Initial chunk files | Names         |  Raw size
+main.js             | main          |   3.40 MB | 
+styles.css          | styles        | 498.48 kB | 
+scripts.js          | scripts       | 107.78 kB | 
+polyfills.js        | polyfills     |  93.00 kB | 
+
+                    | Initial total |   4.10 MB
+
+Application bundle generation complete. [16.978 seconds] - 2026-11-28T11:02:18.415Z
+
+NOTE: Raw file sizes do not reflect development server per-request transformations.
+  ➜  Local:   http://127.0.0.1:4200/
+4:03:03 pm [vite] (client) [console.error] {"headers":{"headers":{},"normalizedNames":{},"lazyInit":null,"lazyUpdate":null},"status":403,"statusText":"Forbidden","url":"http://localhost:4200/petclinic/api/owners","ok":false,"name":"HttpErrorResponse","message":"Http failure response for http://localhost:4200/petclinic/api/owners: 403 Forbidden","error":{"detail":"You do not have permission to perform this action","status":403,"title":"Forbidden","type":"http://localhost:9966/petclinic/api/owners","timestamp":"2026-11-28T11:03:03.419209Z","schemaValidationErrors":[]}}
+4:03:03 pm [vite] (client) [console.error] OwnerService::getOwners failed: server returned code 403 with body "[object Object]"
+4:03:03 pm [vite] (client) [console.error] {"headers":{"headers":{},"normalizedNames":{},"lazyInit":null,"lazyUpdate":null},"status":403,"statusText":"Forbidden","url":"http://localhost:4200/petclinic/api/owners","ok":false,"name":"HttpErrorResponse","message":"Http failure response for http://localhost:4200/petclinic/api/owners: 403 Forbidden","error":{"detail":"You do not have permission to perform this action","status":403,"title":"Forbidden","type":"http://localhost:9966/petclinic/api/owners","timestamp":"2026-11-28T11:03:03.865143Z","schemaValidationErrors":[]}}
+4:03:03 pm [vite] (client) [console.error] OwnerService::searchOwners failed: server returned code 403 with body "[object Object]"
+4:07:58 pm [vite] (client) [console.error] {"headers":{"headers":{},"normalizedNames":{},"lazyInit":null,"lazyUpdate":null},"status":403,"statusText":"Forbidden","url":"http://localhost:4200/petclinic/api/owners","ok":false,"name":"HttpErrorResponse","message":"Http failure response for http://localhost:4200/petclinic/api/owners: 403 Forbidden","error":{"detail":"You do not have permission to perform this action","status":403,"title":"Forbidden","type":"http://localhost:9966/petclinic/api/owners","timestamp":"2026-11-28T11:07:58.284697300Z","schemaValidationErrors":[]}}
+4:07:58 pm [vite] (client) [console.error] OwnerService::getOwners failed: server returned code 403 with body "[object Object]"
+angular_exit=-1

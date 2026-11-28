@@ -1,0 +1,17 @@
+﻿2026-11-28T16:13:18.0365027+05:00
+Version 1.65.1
+version_exit=0
+[{"name":"chromium","revision":"1255","installByDefault":true,"browserVersion":"159.0.8154.6","title":"Chrome for Testing"},{"name":"chromium-headless-shell","revision":"1255","installByDefault":true,"browserVersion":"159.0.8154.6","title":"Chrome Headless Shell"},{"name":"ffmpeg","revision":"1013","installByDefault":true}]
+
+Playwright version: 1.65.1
+  Browsers:
+    C:\Users\Muhammad\AppData\Local\Temp\sqe-area3-phase12-chromium\chromium-1255
+    C:\Users\Muhammad\AppData\Local\Temp\sqe-area3-phase12-chromium\chromium_headless_shell-1255
+    C:\Users\Muhammad\AppData\Local\Temp\sqe-area3-phase12-chromium\ffmpeg-1013
+    C:\Users\Muhammad\AppData\Local\Temp\sqe-area3-phase12-chromium\winldd-1007
+  References:
+    D:\SQE-Project\sqe-petclinic-project\e2e\node_modules\playwright-core
+cache_list_exit=0
+E2E lock SHA-256=27F5F4060B38F3CC7763CF316AF41E93744FEE7D5DF267D059754A1AB071E990
+Original Chromium install exit
+chromium_install_exit=0

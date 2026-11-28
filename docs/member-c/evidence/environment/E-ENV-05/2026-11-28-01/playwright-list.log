@@ -1,0 +1,8 @@
+Listing tests:
+  [chromium] › rbac-vet.spec.ts:6:3 › Role check: VET_ADMIN cannot use owner workflows › vet gets 403 (not 500) when the UI loads owners
+  [chromium] › w1-w2-pet-visit.spec.ts:25:3 › W1 + W2 as OWNER_ADMIN › W1: owner admin adds a new pet to an owner
+  [chromium] › w1-w2-pet-visit.spec.ts:44:3 › W1 + W2 as OWNER_ADMIN › W1 alt: future birth date is rejected and Save is disabled
+  [chromium] › w1-w2-pet-visit.spec.ts:59:3 › W1 + W2 as OWNER_ADMIN › W2: owner admin books a visit for the pet created in W1
+  [chromium] › w1-w2-pet-visit.spec.ts:79:3 › W1 + W2 as OWNER_ADMIN › W2 alt: visit without description cannot be submitted
+Total: 5 tests in 2 files
+playwright_list_exit=0

@@ -1,0 +1,17 @@
+{"time":"2026-11-28T10:59:38.327Z","event":"runtime","mode":"direct","ui":"http://localhost:4200","backend":"http://localhost:9966","node":"v24.22.3","chromium":"159.0.8154.6"}
+{"time":"2026-11-28T10:59:39.396Z","event":"wire response","method":"GET","url":"http://localhost:9966/petclinic/api/owners","status":401,"allowOrigin":null}
+{"time":"2026-11-28T10:59:39.403Z","event":"browser console","message":"Access to XMLHttpRequest at 'http://localhost:9966/petclinic/api/owners' from origin 'http://localhost:4200' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource."}
+{"time":"2026-11-28T10:59:39.406Z","event":"browser console","message":"Failed to load resource: net::ERR_FAILED"}
+{"time":"2026-11-28T10:59:39.406Z","event":"wire request failed","method":"GET","url":"http://localhost:9966/petclinic/api/owners","errorText":"net::ERR_FAILED","corsErrorStatus":{"corsError":"MissingAllowOriginHeader","failedParameter":""}}
+{"time":"2026-11-28T10:59:39.409Z","event":"Angular navigation","url":"http://localhost:4200/petclinic/owners","status":200}
+{"time":"2026-11-28T10:59:39.477Z","event":"wire response","method":"GET","url":"http://localhost:9966/petclinic/api/owners","status":401,"allowOrigin":null}
+{"time":"2026-11-28T10:59:39.480Z","event":"browser console","message":"Access to XMLHttpRequest at 'http://localhost:9966/petclinic/api/owners' from origin 'http://localhost:4200' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource."}
+{"time":"2026-11-28T10:59:39.482Z","event":"Angular owner search","method":"GET","url":"http://localhost:9966/petclinic/api/owners","failure":"net::ERR_FAILED"}
+{"time":"2026-11-28T10:59:39.483Z","event":"browser console","message":"Failed to load resource: net::ERR_FAILED"}
+{"time":"2026-11-28T10:59:39.483Z","event":"wire request failed","method":"GET","url":"http://localhost:9966/petclinic/api/owners","errorText":"net::ERR_FAILED","corsErrorStatus":{"corsError":"MissingAllowOriginHeader","failedParameter":""}}
+{"time":"2026-11-28T10:59:39.490Z","event":"wire response","method":"OPTIONS","url":"http://localhost:9966/petclinic/api/owners/1/pets","status":401,"allowOrigin":null}
+{"time":"2026-11-28T10:59:39.491Z","event":"browser console","message":"Access to fetch at 'http://localhost:9966/petclinic/api/owners/1/pets' from origin 'http://localhost:4200' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource."}
+{"time":"2026-11-28T10:59:39.491Z","event":"browser console","message":"Failed to load resource: net::ERR_FAILED"}
+{"time":"2026-11-28T10:59:39.492Z","event":"anonymous JSON preflight probe","failure":"TypeError: Failed to fetch"}
+{"time":"2026-11-28T10:59:39.492Z","event":"wire request failed","method":"POST","url":"http://localhost:9966/petclinic/api/owners/1/pets","errorText":"net::ERR_FAILED","corsErrorStatus":{"corsError":"PreflightMissingAllowOriginHeader","failedParameter":""}}
+browser_probe_exit=0

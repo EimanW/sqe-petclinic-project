@@ -1,0 +1,39 @@
+﻿2026-11-28T16:13:20.7224079+05:00
+Restricted runtime originals and SHA-256 digests
+3B3BC7B786B6EB0A8C3EDF492553D95ABFC9BBE836A5B07B2F4C5E7FA663F676  target/member-c-phase12/runtime-originals/angular-direct.log
+633EF4FC27A85C06E490A9A4E6524259EE2F01C8A7E89D7F4184F419C9E098C9  target/member-c-phase12/runtime-originals/angular-proxy.log
+CEF27F531705CD41E5D4954A3D5517E2388C29C0E4E4241C41364C8EE1B3A36E  target/member-c-phase12/runtime-originals/angular-transition.log
+59115B38E172953E8AEFA3774C4884112872403A9FD59DABEA41965FDDF81E42  target/member-c-phase12/runtime-originals/backend-initial.log
+59D60005A7226FCC9B3CD2BC1CADF9F746F182BCB3869B137C8C467AD0E4A678  target/member-c-phase12/runtime-originals/backend-restart.log
+1830C50E1DB08F9BD5E38D363CB0A4DA42A94152052CFDBABA61EBDB419684E1  target/member-c-phase12/runtime-originals/backend-restored.log
+B3501098C702B51AC8EC6AEC1C49273B5943001C32884632528FA30CA4FF30D6  target/member-c-phase12/runtime-originals/browser-direct.log
+48D35C65A29B9BFD178350FBE2AC8B0FBDB467A59D40E3C0B86A39C2478E1CC9  target/member-c-phase12/runtime-originals/browser-proxy.log
+12603A5AC01F85CD2757FE2A3B0B871BBE196FE050123F9FE9D934C88B185F19  target/member-c-phase12/runtime-originals/browser-proxy-retry.log
+1E05DAAA593CEF9D3FDAD471A63D29486A5B71D03475F01A6A65AC6E28B176E0  target/member-c-phase12/runtime-originals/chromium-install.log
+001FBE128C5F0899E26A25A82CBD21C629B807B7B871C930D4125E518FB7AAC6  target/member-c-phase12/runtime-originals/first-marker-after.log
+CC9BD044D853F12B9FC00343C32E8FECC254B416C003A97C1D3F7DA12C49D2A1  target/member-c-phase12/runtime-originals/first-restart-listener.log
+E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855  target/member-c-phase12/runtime-originals/java.stdout.log
+26808476F2D1772F87BDF55B57F9E96ED937D74D74DFC4AF2423EC35297E37D1  target/member-c-phase12/runtime-originals/npm-ci.log
+5C1D104516438EFA538DC6A7D614861DE35F5930F911237F90CF61E3957F6E6D  target/member-c-phase12/runtime-originals/npm-ci-online.log
+7C19348DAB4B2ACE65B19B947FEA5B7542D420DCD9B264B04DE44D9B11D914EB  target/member-c-phase12/runtime-originals/playwright-toolchain.log
+65593ABE84E6CA639D261E253C2C04086FB3E110C0BB80F0E320D218E31114CC  target/member-c-phase12/runtime-originals/toolchain.log
+DD2646D44FE0EC96C6BB9E29934764C32A0B1225D487ABFE3E2BCDFA046019A3  target/member-c-phase12/runtime-originals/toolchain-verified.log
+Foreground process exits after checkpoint-owned listener shutdown
+target/member-c-phase12/runtime-originals/backend-initial.log
+maven_run_exit=1
+target/member-c-phase12/runtime-originals/backend-restart.log
+maven_run_exit=1
+target/member-c-phase12/runtime-originals/backend-restored.log
+maven_run_exit=1
+docs/member-c/evidence/environment/E-ENV-05/2026-11-28-01/angular-direct-approved.log
+angular_exit=-1
+docs/member-c/evidence/environment/E-ENV-05/2026-11-28-01/angular-proxy-copy.log
+angular_exit=-1
+2026-11-28T16:08:56.0903227+05:00
+  TCP    127.0.0.1:9966         0.0.0.0:0              LISTENING       24488
+Stop-Process -Id 24488
+stop_exit=0; no listener on TCP 9966
+2026-11-28T16:08:59.5477478+05:00
+  TCP    127.0.0.1:4200         0.0.0.0:0              LISTENING       11468
+Stop-Process -Id 11468
+stop_exit=0; no listener on TCP 4200
